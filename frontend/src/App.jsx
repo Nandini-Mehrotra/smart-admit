@@ -1,11 +1,19 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-blue-400">
-        Smart Admit is Alive! 🚀
-      </h1>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        {/* When the URL is exactly "/", show the Home component */}
+        <Route path="/" element={<Home />} />
+
+        {/* When the URL is "/dashboard", show the Dashboard component */}
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
