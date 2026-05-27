@@ -7,7 +7,6 @@ export default function Home() {
       <p className="text-xl text-gray-600 mb-8 text-center max-w-2xl">
         AI-powered college recommendations based on your unique resume and goals.
       </p>
-      {/* This Link acts like an <a> tag, but doesn't reload the page! */}
       <Link 
         to="/dashboard" 
         className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
