@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { UploadCloud, FileText } from 'lucide-react'; //for icons
+import { UploadCloud, FileText, X } from 'lucide-react';
 
 export default function ResumeUploader() {
   const [acceptedFile, setAcceptedFile] = useState(null); //to remember wht happened (as in which file was uploaded)
 
-  // This function runs the exact moment a file is dropped
+  //This function runs the exact moment a file is dropped
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       setAcceptedFile(acceptedFiles[0]);
@@ -42,16 +42,31 @@ export default function ResumeUploader() {
       </div>
 
       {acceptedFile && (
-        <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
-          <div className="flex items-center text-green-700">
-            <FileText className="w-5 h-5 mr-3" />
-            <span className="font-medium">{acceptedFile.name}</span>
-          </div>
-          <button className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-green-700">
-            Analyze Resume
-          </button>
-        </div>
-      )}
+           <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
+             
+             {/* Left side: File icon and name */}
+             <div className="flex items-center text-green-700 truncate mr-4">
+               <FileText className="w-5 h-5 mr-3 flex-shrink-0" />
+               <span className="font-medium truncate">{acceptedFile.name}</span>
+             </div>
+             
+             {/* Right side: Remove (X) and Analyze buttons */}
+             <div className="flex items-center space-x-3 flex-shrink-0">
+               <button 
+                 onClick={() => setAcceptedFile(null)} 
+                 className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                 title="Remove file"
+               >
+                 <X className="w-5 h-5" />
+               </button>
+               
+               <button className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-green-700 transition-colors">
+                 Analyze
+               </button>
+             </div>
+             
+           </div>
+         )}
     </div>
   );
 }
