@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import multer from "multer";
 import mongoose from "mongoose";
 import { createRequire } from "module";
+import College from './models/College.js';
 
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
@@ -112,6 +113,40 @@ ${rawText}
       message: "Something went wrong while processing the PDF",
       error: error.message,
     });
+  }
+});
+
+// Filter Colleges Route
+app.get('/api/colleges/filter', async (req, res) => {
+  try {
+    // 1. Grab the search parameters from the URL 
+    const { state, maxBudget } = req.query;
+
+    // 2. Build the database query dynamically
+    let query = {};
+    
+    if (state) {
+      query.state = state;
+    }
+    
+    if (maxBudget) {
+      // $lte is MongoDB syntax for "Less Than or Equal to"
+      query.tuition = { $lte: Number(maxBudget) };
+    }
+
+    // 3. Execute the search using our Compound Index
+    const colleges = await College.find(query);
+    
+    // 4. Send the matching colleges back to the frontend
+    res.json({
+      status: 'success',
+      results: colleges.length,
+      data: colleges
+    });
+
+  } catch (error) {
+    console.error("Database query error:", error);
+    res.status(500).json({ error: "Failed to fetch colleges" });
   }
 });
 
