@@ -18,7 +18,7 @@ app.use(express.json());
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-// MongoDB schema: how parsed resume data will be saved
+//mongodb schema ie how parsed resume data will be saved
 const resumeSchema = new mongoose.Schema(
   {
     fileName: String,
@@ -101,11 +101,25 @@ ${rawText}
       extractedData,
     });
 
+    // Forward the extracted JSON to the Python Flask server for ML Prediction
+    const pythonResponse = await fetch("http://127.0.0.1:8000/api/predict", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(extractedData)
+    });
+
+    const mlPrediction = await pythonResponse.json();
+
+    //finally send everything back to the frontend in one go
     res.json({
       status: "success",
-      message: "PDF parsed, Gemini extracted JSON, and data saved to MongoDB",
+      message: "PDF parsed, saved to MongoDB, and scored by Python ML",
       data: savedResume,
+      mlResult: mlPrediction
     });
+
   } catch (error) {
     console.error("Upload error:", error);
     res.status(500).json({
@@ -116,13 +130,13 @@ ${rawText}
   }
 });
 
-// Filter Colleges Route
+//Filter Colleges Route
 app.get('/api/colleges/filter', async (req, res) => {
   try {
-    // 1. Grab the search parameters from the URL 
+    //Grab the search parameters from the URL 
     const { state, maxBudget } = req.query;
 
-    // 2. Build the database query dynamically
+    //Build the database query dynamically
     let query = {};
     
     if (state) {
@@ -134,10 +148,10 @@ app.get('/api/colleges/filter', async (req, res) => {
       query.tuition = { $lte: Number(maxBudget) };
     }
 
-    // 3. Execute the search using our Compound Index
+    //Execute the search using our Compound Index
     const colleges = await College.find(query);
     
-    // 4. Send the matching colleges back to the frontend
+    //Send the matching colleges back to the frontend
     res.json({
       status: 'success',
       results: colleges.length,

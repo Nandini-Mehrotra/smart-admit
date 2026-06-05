@@ -4,12 +4,13 @@ import { UploadCloud, FileText, X, Loader2 } from 'lucide-react';
 
 export default function ResumeUploader() {
   const [acceptedFile, setAcceptedFile] = useState(null);
-  
   const [isUploading, setIsUploading] = useState(false); 
+  const [predictionData, setPredictionData] = useState(null); 
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       setAcceptedFile(acceptedFiles[0]);
+      setPredictionData(null); 
     }
   }, []);
 
@@ -19,33 +20,34 @@ export default function ResumeUploader() {
     maxFiles: 1
   });
 
-  // 2. The function that fires when "Analyze" is clicked
   const handleAnalyze = async () => {
     if (!acceptedFile) return;
 
-    setIsUploading(true); // Turn on the loading spinner
+    setIsUploading(true);
 
-    // 3. Create the special package for files (FormData)
     const formData = new FormData();
-    // We attach the PDF and label it 'resume' (Must match what multer expects!)
     formData.append('resume', acceptedFile); 
 
     try {
-      // 4. Send the package to our Express backend (Notice port 5001!)
       const response = await fetch('http://localhost:5001/api/upload', {
         method: 'POST',
         body: formData,
       });
 
       const data = await response.json();
-      console.log("Backend says:", data); // Check your browser console to see this!
-      alert("Success! Backend received the file."); // A quick visual check
+      console.log("Backend says:", data); 
+      
+      if (data.status === "success") {
+        setPredictionData(data);
+      } else {
+        alert("Something went wrong with the AI analysis.");
+      }
 
     } catch (error) {
       console.error("Upload failed:", error);
       alert("Upload failed. Is your backend running?");
     } finally {
-      setIsUploading(false); // Turn off the loading spinner
+      setIsUploading(false); 
     }
   };
 
@@ -80,14 +82,16 @@ export default function ResumeUploader() {
           
           <div className="flex items-center space-x-3 flex-shrink-0">
             <button 
-              onClick={() => setAcceptedFile(null)} 
+              onClick={() => {
+                setAcceptedFile(null);
+                setPredictionData(null);
+              }} 
               className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
               disabled={isUploading}
             >
               <X className="w-5 h-5" />
             </button>
             
-            {/* 5. Update the Analyze button to trigger our new function */}
             <button 
               onClick={handleAnalyze}
               disabled={isUploading}
@@ -96,6 +100,39 @@ export default function ResumeUploader() {
               {isUploading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
               {isUploading ? "Uploading..." : "Analyze"}
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* The AI Results Card with Bulletproof Rendering */}
+      {predictionData && (
+        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
+          <h3 className="text-xl font-bold mb-4">🚀 AI Analysis Complete</h3>
+          
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="p-4 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-600 font-semibold uppercase">Admission Probability</p>
+              <p className="text-4xl font-extrabold text-blue-900">
+                {predictionData?.mlResult?.samplePrediction?.admissionProbability || "N/A"}%
+              </p>
+            </div>
+            <div className="p-4 bg-green-50 rounded-lg">
+              <p className="text-sm text-green-600 font-semibold uppercase">Profile Category</p>
+              <p className="text-4xl font-extrabold text-green-900">
+                {predictionData?.mlResult?.samplePrediction?.category || "Unknown"}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p className="font-semibold text-gray-700 mb-2">Detected Top Skills:</p>
+            <div className="flex flex-wrap gap-2">
+              {(predictionData?.data?.extractedData?.topSkills || []).map((skill, index) => (
+                <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       )}
