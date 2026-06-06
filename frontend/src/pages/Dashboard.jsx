@@ -8,7 +8,8 @@ import CollegeCard from "../components/CollegeCard";
 
 export default function Dashboard() {
   const [colleges, setColleges] = useState([]);
-  const [state, setState] = useState("");
+  const [selectedCountries, setSelectedCountries] = useState([]); 
+  const [selectedStates, setSelectedStates] = useState([]);       
   const [maxBudget, setMaxBudget] = useState("");
 
   useEffect(() => {
@@ -16,7 +17,9 @@ export default function Dashboard() {
       try {
         const params = new URLSearchParams();
 
-        if (state) params.append("state", state);
+        // Join the arrays into comma-separated strings for the backend
+        if (selectedCountries.length > 0) params.append("country", selectedCountries.join(","));
+        if (selectedStates.length > 0) params.append("state", selectedStates.join(","));
         if (maxBudget) params.append("maxBudget", maxBudget);
 
         const response = await fetch(
@@ -24,10 +27,11 @@ export default function Dashboard() {
         );
 
         const result = await response.json();
+        
         if (result.data && result.data.length > 0) {
           setColleges(result.data);
-        }  // using mock data for now since backend isn't fully ready yet
-        else {
+        } else {
+          // Keeping your mock data fallback just in case the database is empty!
           setColleges([
             {
               _id: 1,
@@ -49,7 +53,7 @@ export default function Dashboard() {
     };
 
     fetchColleges();
-  }, [state, maxBudget]);
+  }, [selectedCountries, selectedStates, maxBudget]); // Make sure useEffect watches the new arrays!
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -69,8 +73,10 @@ export default function Dashboard() {
 
       <div className="p-8 flex flex-col lg:flex-row gap-8">
         <SidebarFilters
-          state={state}
-          setState={setState}
+          selectedCountries={selectedCountries}
+          setSelectedCountries={setSelectedCountries}
+          selectedStates={selectedStates}
+          setSelectedStates={setSelectedStates}
           maxBudget={maxBudget}
           setMaxBudget={setMaxBudget}
         />

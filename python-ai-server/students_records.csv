@@ -1,7 +1,501 @@
-name,stream,skills,internships,majorProjects,targetState,maxBudget,admissionStatus
-Sanya,Engineering,React;Node,2,3,Karnataka,25000,1
-Ritu,Business,Excel;Marketing,0,1,Maharashtra,15000,0
-Suresh,Engineering,Python;MongoDB,1,2,Karnataka,20000,1
-Rahul,Arts,Writing,1,1,Delhi,10000,0
-Sneha,Engineering,C++;Algorithms,3,4,Telangana,30000,1
-Ramesh,Business,Finance;Excel,2,1,Karnataka,18000,0
+name,stream,skills,internships,majorProjects,targetCountry,targetState,maxBudget_USD,admissionStatus
+Applicant_1,Engineering,React;Node,1,0,UK,England,24814,0
+Applicant_2,Science,Writing;Research,0,0,India,Tamil Nadu,40255,0
+Applicant_3,Science,Java;Spring,3,3,India,Tamil Nadu,98498,1
+Applicant_4,Arts,Excel;Finance,4,2,Australia,New South Wales,21553,1
+Applicant_5,Design,Writing;Research,4,4,UK,Scotland,83750,1
+Applicant_6,Design,C++;Algorithms,3,4,Australia,New South Wales,46616,1
+Applicant_7,Arts,Python;MachineLearning,1,2,Australia,Victoria,63270,1
+Applicant_8,Design,React;Node,1,1,Canada,Quebec,99987,1
+Applicant_9,Science,Java;Spring,2,5,Canada,British Columbia,98802,1
+Applicant_10,Science,Writing;Research,3,0,USA,Massachusetts,46657,1
+Applicant_11,Science,Java;Spring,3,5,India,Tamil Nadu,75991,1
+Applicant_12,Science,C++;Algorithms,3,0,India,Delhi,25497,1
+Applicant_13,Arts,Writing;Research,2,2,Canada,Ontario,50320,1
+Applicant_14,Science,C++;Algorithms,2,5,Australia,New South Wales,84392,1
+Applicant_15,Design,Python;MachineLearning,3,1,UK,Scotland,47926,1
+Applicant_16,Arts,React;Node,0,2,Australia,Victoria,61714,0
+Applicant_17,Arts,React;Node,4,1,USA,Texas,54374,1
+Applicant_18,Design,Python;MachineLearning,2,5,USA,California,82027,1
+Applicant_19,Arts,React;Node,3,1,Canada,British Columbia,96873,1
+Applicant_20,Engineering,React;Node,0,2,Canada,British Columbia,79591,0
+Applicant_21,Arts,C++;Algorithms,2,1,USA,Texas,86656,1
+Applicant_22,Arts,Java;Spring,0,5,Australia,Victoria,64836,1
+Applicant_23,Business,Python;MachineLearning,2,5,India,Maharashtra,88674,1
+Applicant_24,Engineering,Java;Spring,3,3,UK,England,59513,1
+Applicant_25,Arts,Python;MachineLearning,0,1,UK,Scotland,13469,0
+Applicant_26,Arts,Python;MachineLearning,4,3,USA,California,84865,1
+Applicant_27,Engineering,Writing;Research,1,2,India,Telangana,84169,1
+Applicant_28,Engineering,Python;MachineLearning,3,2,Australia,New South Wales,54524,1
+Applicant_29,Arts,Java;Spring,4,0,Canada,British Columbia,70821,1
+Applicant_30,Arts,Python;MachineLearning,0,4,UK,England,64577,1
+Applicant_31,Engineering,Java;Spring,4,2,Australia,New South Wales,72801,1
+Applicant_32,Business,C++;Algorithms,1,4,India,Delhi,83042,1
+Applicant_33,Business,Excel;Finance,3,4,USA,Texas,11369,1
+Applicant_34,Business,Excel;Finance,3,0,UK,Scotland,23185,1
+Applicant_35,Business,React;Node,3,3,UK,Scotland,39008,1
+Applicant_36,Science,React;Node,1,1,Canada,Ontario,22443,0
+Applicant_37,Business,Python;MachineLearning,1,5,India,Tamil Nadu,65852,1
+Applicant_38,Business,Excel;Finance,2,2,USA,Texas,31279,1
+Applicant_39,Science,Writing;Research,4,2,India,Karnataka,88557,1
+Applicant_40,Design,Python;MachineLearning,2,3,USA,New York,30016,1
+Applicant_41,Business,C++;Algorithms,0,3,Australia,New South Wales,23870,0
+Applicant_42,Engineering,C++;Algorithms,2,0,USA,New York,62390,1
+Applicant_43,Arts,Writing;Research,1,4,UK,Scotland,63450,1
+Applicant_44,Engineering,Writing;Research,3,2,India,Maharashtra,11400,1
+Applicant_45,Arts,Writing;Research,2,2,Canada,Ontario,79257,1
+Applicant_46,Design,React;Node,2,4,Canada,British Columbia,59726,1
+Applicant_47,Science,Writing;Research,2,3,India,Karnataka,31820,1
+Applicant_48,Science,C++;Algorithms,1,2,Canada,Ontario,31713,0
+Applicant_49,Business,C++;Algorithms,1,4,Canada,Quebec,91583,1
+Applicant_50,Business,Python;MachineLearning,0,5,USA,Massachusetts,76805,1
+Applicant_51,Business,React;Node,3,3,USA,California,75211,1
+Applicant_52,Business,Writing;Research,2,4,India,Maharashtra,53094,1
+Applicant_53,Science,Writing;Research,4,2,UK,Scotland,20439,1
+Applicant_54,Design,Writing;Research,0,1,Canada,British Columbia,84320,0
+Applicant_55,Design,React;Node,0,0,Australia,New South Wales,95046,0
+Applicant_56,Engineering,Python;MachineLearning,1,2,Australia,New South Wales,92135,1
+Applicant_57,Arts,Python;MachineLearning,0,1,Australia,Victoria,71467,0
+Applicant_58,Business,Excel;Finance,3,3,UK,England,52621,1
+Applicant_59,Design,Excel;Finance,3,5,USA,New York,97233,1
+Applicant_60,Arts,Excel;Finance,3,0,Australia,New South Wales,88237,1
+Applicant_61,Business,Excel;Finance,0,0,Canada,Quebec,73520,0
+Applicant_62,Engineering,C++;Algorithms,2,1,Australia,Victoria,84963,1
+Applicant_63,Business,C++;Algorithms,0,0,Australia,Victoria,15702,0
+Applicant_64,Design,Writing;Research,2,3,Australia,Victoria,26663,1
+Applicant_65,Arts,Java;Spring,2,1,India,Maharashtra,17607,0
+Applicant_66,Business,React;Node,4,1,India,Karnataka,53543,1
+Applicant_67,Arts,Excel;Finance,3,0,Canada,Ontario,70768,1
+Applicant_68,Arts,Excel;Finance,1,0,UK,England,14387,0
+Applicant_69,Engineering,Excel;Finance,0,0,India,Maharashtra,50242,0
+Applicant_70,Arts,Java;Spring,0,4,Canada,Quebec,47065,0
+Applicant_71,Science,Excel;Finance,2,2,Australia,Victoria,18824,0
+Applicant_72,Science,Python;MachineLearning,4,1,Canada,Quebec,19284,1
+Applicant_73,Science,Writing;Research,4,4,UK,England,43561,1
+Applicant_74,Arts,Java;Spring,3,3,Australia,Victoria,81654,1
+Applicant_75,Engineering,Excel;Finance,2,3,India,Delhi,10615,1
+Applicant_76,Business,React;Node,1,5,Canada,Quebec,21883,1
+Applicant_77,Business,Writing;Research,2,5,Canada,Ontario,24950,1
+Applicant_78,Design,Python;MachineLearning,4,5,Canada,Ontario,99947,1
+Applicant_79,Engineering,Excel;Finance,1,5,UK,England,69203,1
+Applicant_80,Business,React;Node,0,4,India,Karnataka,91932,1
+Applicant_81,Design,React;Node,3,0,UK,England,19870,0
+Applicant_82,Design,Java;Spring,4,3,Australia,Victoria,19530,1
+Applicant_83,Design,Excel;Finance,2,0,India,Telangana,55937,0
+Applicant_84,Science,Excel;Finance,4,4,USA,Massachusetts,32326,1
+Applicant_85,Engineering,React;Node,4,0,Australia,New South Wales,65773,1
+Applicant_86,Arts,Python;MachineLearning,1,3,USA,California,93624,1
+Applicant_87,Science,Java;Spring,4,4,Australia,New South Wales,19301,1
+Applicant_88,Science,Python;MachineLearning,1,1,India,Karnataka,76820,0
+Applicant_89,Design,React;Node,0,4,UK,Scotland,72349,1
+Applicant_90,Design,Excel;Finance,0,1,India,Karnataka,79792,0
+Applicant_91,Engineering,Writing;Research,2,2,Canada,Quebec,23927,1
+Applicant_92,Design,C++;Algorithms,1,5,USA,New York,43152,1
+Applicant_93,Engineering,C++;Algorithms,1,3,India,Tamil Nadu,26441,0
+Applicant_94,Arts,Python;MachineLearning,4,2,Canada,Ontario,47193,1
+Applicant_95,Engineering,React;Node,0,5,USA,New York,32465,0
+Applicant_96,Design,React;Node,4,3,UK,England,50791,1
+Applicant_97,Design,React;Node,0,1,USA,Texas,86384,0
+Applicant_98,Business,Java;Spring,2,3,Australia,New South Wales,58880,1
+Applicant_99,Arts,React;Node,0,1,India,Tamil Nadu,81408,0
+Applicant_100,Business,Excel;Finance,0,3,Australia,Victoria,76694,0
+Applicant_101,Business,Writing;Research,2,2,USA,California,70526,1
+Applicant_102,Arts,Java;Spring,3,3,Canada,British Columbia,62850,1
+Applicant_103,Science,Excel;Finance,3,3,Australia,Victoria,20524,1
+Applicant_104,Science,React;Node,2,2,USA,Massachusetts,14550,0
+Applicant_105,Design,Excel;Finance,1,3,Australia,New South Wales,22359,0
+Applicant_106,Arts,Python;MachineLearning,0,1,Australia,Victoria,11504,0
+Applicant_107,Science,React;Node,3,3,USA,New York,91550,1
+Applicant_108,Business,Python;MachineLearning,2,5,USA,Texas,15478,1
+Applicant_109,Engineering,React;Node,3,5,UK,Scotland,87034,1
+Applicant_110,Design,C++;Algorithms,4,2,UK,Scotland,14634,1
+Applicant_111,Science,React;Node,2,1,UK,Scotland,64755,1
+Applicant_112,Science,React;Node,2,2,India,Maharashtra,84512,1
+Applicant_113,Business,React;Node,1,5,USA,Massachusetts,27960,1
+Applicant_114,Science,Writing;Research,4,5,USA,California,62475,1
+Applicant_115,Business,React;Node,1,2,UK,England,86357,1
+Applicant_116,Design,Writing;Research,2,5,UK,England,92164,1
+Applicant_117,Design,C++;Algorithms,2,5,USA,California,76593,1
+Applicant_118,Engineering,React;Node,2,4,Canada,British Columbia,87259,1
+Applicant_119,Design,React;Node,4,2,India,Karnataka,67652,1
+Applicant_120,Arts,Python;MachineLearning,4,3,USA,Texas,91101,1
+Applicant_121,Science,React;Node,0,4,Australia,New South Wales,93753,1
+Applicant_122,Science,C++;Algorithms,2,2,India,Tamil Nadu,11606,0
+Applicant_123,Science,Python;MachineLearning,4,5,Canada,Quebec,28391,1
+Applicant_124,Arts,React;Node,1,5,Canada,Quebec,88493,1
+Applicant_125,Engineering,Excel;Finance,1,5,India,Telangana,13475,1
+Applicant_126,Science,React;Node,0,4,USA,Texas,22796,0
+Applicant_127,Engineering,React;Node,1,0,UK,Scotland,13876,0
+Applicant_128,Engineering,Python;MachineLearning,3,3,India,Maharashtra,39503,1
+Applicant_129,Arts,Java;Spring,0,1,USA,California,64440,0
+Applicant_130,Design,React;Node,1,4,Australia,New South Wales,37731,1
+Applicant_131,Business,React;Node,0,1,India,Telangana,30274,0
+Applicant_132,Arts,Java;Spring,0,4,Australia,New South Wales,93873,1
+Applicant_133,Science,Excel;Finance,4,1,Canada,Ontario,53651,1
+Applicant_134,Design,React;Node,3,1,Canada,Quebec,66450,1
+Applicant_135,Business,React;Node,4,5,India,Tamil Nadu,82653,1
+Applicant_136,Science,Excel;Finance,0,1,India,Delhi,14771,0
+Applicant_137,Science,React;Node,2,3,India,Delhi,57500,1
+Applicant_138,Design,Python;MachineLearning,4,0,Australia,New South Wales,80891,1
+Applicant_139,Design,React;Node,0,4,UK,England,92290,1
+Applicant_140,Business,Writing;Research,3,4,USA,Texas,85365,1
+Applicant_141,Engineering,React;Node,1,5,Australia,New South Wales,15069,1
+Applicant_142,Arts,Java;Spring,4,0,India,Tamil Nadu,68562,1
+Applicant_143,Business,Writing;Research,4,5,Canada,Ontario,17518,1
+Applicant_144,Science,C++;Algorithms,2,1,Australia,Victoria,73650,1
+Applicant_145,Engineering,React;Node,4,2,USA,New York,14837,1
+Applicant_146,Engineering,Java;Spring,2,3,Canada,Ontario,39274,1
+Applicant_147,Design,Excel;Finance,0,0,UK,England,63396,0
+Applicant_148,Science,C++;Algorithms,1,4,Australia,Victoria,40093,1
+Applicant_149,Engineering,React;Node,4,0,UK,England,48787,1
+Applicant_150,Science,Python;MachineLearning,4,0,USA,Texas,63006,1
+Applicant_151,Science,Excel;Finance,0,2,USA,New York,63638,0
+Applicant_152,Business,React;Node,4,0,USA,Massachusetts,13187,1
+Applicant_153,Arts,Excel;Finance,2,0,UK,England,20934,0
+Applicant_154,Design,React;Node,0,3,India,Karnataka,49232,0
+Applicant_155,Business,Java;Spring,4,4,USA,New York,15405,1
+Applicant_156,Engineering,Writing;Research,3,2,UK,England,32701,1
+Applicant_157,Engineering,Excel;Finance,1,1,Canada,British Columbia,64232,0
+Applicant_158,Science,Writing;Research,1,2,Australia,Victoria,53992,0
+Applicant_159,Arts,Java;Spring,0,0,UK,England,81272,0
+Applicant_160,Design,Java;Spring,1,4,Canada,Quebec,33496,1
+Applicant_161,Design,Writing;Research,1,5,UK,Scotland,41482,1
+Applicant_162,Science,React;Node,2,1,USA,Massachusetts,45139,1
+Applicant_163,Design,Python;MachineLearning,3,4,Australia,New South Wales,94049,1
+Applicant_164,Arts,Python;MachineLearning,2,3,USA,New York,11718,1
+Applicant_165,Design,Python;MachineLearning,1,3,Canada,British Columbia,46511,1
+Applicant_166,Engineering,Python;MachineLearning,3,5,Australia,New South Wales,36623,1
+Applicant_167,Business,Writing;Research,2,2,USA,Texas,83758,1
+Applicant_168,Engineering,Java;Spring,2,4,UK,Scotland,10826,1
+Applicant_169,Science,Excel;Finance,4,4,India,Tamil Nadu,83604,1
+Applicant_170,Business,Excel;Finance,0,1,Australia,New South Wales,22621,0
+Applicant_171,Science,Excel;Finance,4,3,India,Telangana,77595,1
+Applicant_172,Science,Python;MachineLearning,3,4,USA,New York,27694,1
+Applicant_173,Design,C++;Algorithms,1,1,India,Karnataka,37944,0
+Applicant_174,Design,Java;Spring,2,5,USA,New York,34664,1
+Applicant_175,Arts,Excel;Finance,4,3,UK,Scotland,19663,1
+Applicant_176,Science,Writing;Research,3,4,USA,Texas,29057,1
+Applicant_177,Arts,Python;MachineLearning,0,0,UK,England,44139,0
+Applicant_178,Engineering,Writing;Research,4,2,Canada,Quebec,15025,1
+Applicant_179,Arts,C++;Algorithms,0,0,India,Tamil Nadu,45108,0
+Applicant_180,Business,Writing;Research,4,4,UK,Scotland,26961,1
+Applicant_181,Engineering,C++;Algorithms,4,0,India,Tamil Nadu,24172,1
+Applicant_182,Business,C++;Algorithms,4,0,India,Karnataka,81798,1
+Applicant_183,Business,Excel;Finance,0,5,India,Delhi,35471,0
+Applicant_184,Business,Excel;Finance,1,3,USA,Texas,72168,1
+Applicant_185,Arts,C++;Algorithms,4,0,UK,Scotland,30196,1
+Applicant_186,Science,Java;Spring,1,3,UK,England,25338,0
+Applicant_187,Business,React;Node,3,2,Canada,Ontario,37170,1
+Applicant_188,Engineering,React;Node,3,3,Canada,Ontario,86452,1
+Applicant_189,Engineering,React;Node,0,1,India,Maharashtra,20612,0
+Applicant_190,Business,Writing;Research,2,5,USA,Texas,52268,1
+Applicant_191,Science,React;Node,1,0,Australia,New South Wales,19126,0
+Applicant_192,Science,Excel;Finance,4,4,Australia,New South Wales,63754,1
+Applicant_193,Arts,Excel;Finance,3,4,UK,England,68444,1
+Applicant_194,Science,C++;Algorithms,0,3,India,Delhi,96613,1
+Applicant_195,Science,Excel;Finance,3,0,India,Tamil Nadu,83969,1
+Applicant_196,Science,Writing;Research,3,3,UK,England,22075,1
+Applicant_197,Science,Java;Spring,3,0,India,Tamil Nadu,52150,1
+Applicant_198,Design,Java;Spring,0,3,Canada,Ontario,18732,0
+Applicant_199,Design,React;Node,4,2,Canada,Quebec,99874,1
+Applicant_200,Engineering,Excel;Finance,1,5,Canada,Ontario,49450,1
+Applicant_201,Arts,C++;Algorithms,4,4,Australia,New South Wales,32119,1
+Applicant_202,Science,Python;MachineLearning,2,1,UK,England,94779,1
+Applicant_203,Design,Excel;Finance,3,4,UK,Scotland,42247,1
+Applicant_204,Science,Writing;Research,2,0,USA,California,29224,0
+Applicant_205,Business,C++;Algorithms,1,3,USA,California,37147,0
+Applicant_206,Business,Python;MachineLearning,0,4,Canada,British Columbia,50435,0
+Applicant_207,Business,Java;Spring,2,0,USA,Massachusetts,45861,0
+Applicant_208,Arts,C++;Algorithms,0,1,UK,Scotland,25975,0
+Applicant_209,Science,React;Node,1,0,Canada,Quebec,36541,0
+Applicant_210,Science,React;Node,0,3,USA,Massachusetts,72226,0
+Applicant_211,Engineering,Python;MachineLearning,2,1,UK,Scotland,84501,1
+Applicant_212,Design,React;Node,0,3,Australia,New South Wales,97234,1
+Applicant_213,Business,Excel;Finance,4,4,Canada,Quebec,67483,1
+Applicant_214,Science,Excel;Finance,0,1,USA,California,76132,0
+Applicant_215,Science,Python;MachineLearning,2,2,UK,England,30445,1
+Applicant_216,Science,Writing;Research,2,1,USA,Massachusetts,55226,1
+Applicant_217,Engineering,Excel;Finance,4,0,USA,Massachusetts,56685,1
+Applicant_218,Arts,Python;MachineLearning,0,5,Canada,Quebec,66409,1
+Applicant_219,Engineering,Java;Spring,1,3,USA,California,60326,1
+Applicant_220,Business,Excel;Finance,4,2,India,Karnataka,20491,1
+Applicant_221,Business,C++;Algorithms,3,5,Canada,Quebec,15968,1
+Applicant_222,Design,Java;Spring,0,5,Canada,Quebec,98522,1
+Applicant_223,Engineering,Python;MachineLearning,3,2,Australia,New South Wales,58101,1
+Applicant_224,Arts,Writing;Research,2,2,India,Tamil Nadu,63561,1
+Applicant_225,Business,Writing;Research,2,5,UK,Scotland,39234,1
+Applicant_226,Business,Python;MachineLearning,2,1,Canada,Ontario,68698,1
+Applicant_227,Engineering,Java;Spring,1,4,Canada,British Columbia,33822,1
+Applicant_228,Business,Python;MachineLearning,2,0,Australia,New South Wales,52705,0
+Applicant_229,Design,Excel;Finance,3,4,Canada,Ontario,15447,1
+Applicant_230,Business,C++;Algorithms,1,0,India,Tamil Nadu,75389,0
+Applicant_231,Arts,Java;Spring,1,0,USA,California,16787,0
+Applicant_232,Arts,C++;Algorithms,0,4,Australia,Victoria,70826,1
+Applicant_233,Business,Java;Spring,3,4,UK,Scotland,51770,1
+Applicant_234,Engineering,Java;Spring,0,0,Canada,Ontario,10874,0
+Applicant_235,Science,C++;Algorithms,4,2,UK,England,57407,1
+Applicant_236,Engineering,Python;MachineLearning,2,5,Australia,Victoria,57670,1
+Applicant_237,Business,C++;Algorithms,3,3,India,Maharashtra,70186,1
+Applicant_238,Engineering,React;Node,4,1,India,Maharashtra,33073,1
+Applicant_239,Business,Writing;Research,4,0,Australia,New South Wales,56541,1
+Applicant_240,Arts,Excel;Finance,4,0,USA,Texas,94686,1
+Applicant_241,Design,C++;Algorithms,0,4,India,Maharashtra,34615,0
+Applicant_242,Design,Java;Spring,2,1,USA,Texas,89174,1
+Applicant_243,Engineering,React;Node,3,0,Canada,Quebec,15990,0
+Applicant_244,Business,C++;Algorithms,0,1,UK,England,68807,0
+Applicant_245,Design,Excel;Finance,4,1,UK,Scotland,74077,1
+Applicant_246,Design,Excel;Finance,3,3,India,Maharashtra,54329,1
+Applicant_247,Business,Java;Spring,2,2,Australia,Victoria,82984,1
+Applicant_248,Engineering,React;Node,4,4,UK,Scotland,46447,1
+Applicant_249,Engineering,C++;Algorithms,0,0,USA,Massachusetts,88249,0
+Applicant_250,Engineering,Excel;Finance,3,0,Canada,British Columbia,12196,0
+Applicant_251,Business,Excel;Finance,0,4,India,Maharashtra,94613,1
+Applicant_252,Business,Writing;Research,0,3,Australia,Victoria,28494,0
+Applicant_253,Design,React;Node,4,0,India,Delhi,60228,1
+Applicant_254,Business,Python;MachineLearning,0,4,USA,California,81900,1
+Applicant_255,Arts,Python;MachineLearning,4,1,Canada,Quebec,69298,1
+Applicant_256,Business,React;Node,0,0,USA,Massachusetts,14156,0
+Applicant_257,Engineering,Java;Spring,2,3,Canada,British Columbia,90372,1
+Applicant_258,Engineering,React;Node,3,3,Australia,New South Wales,28344,1
+Applicant_259,Engineering,Writing;Research,0,3,Australia,New South Wales,98446,1
+Applicant_260,Arts,Excel;Finance,3,3,UK,England,45362,1
+Applicant_261,Science,Python;MachineLearning,4,0,Canada,Ontario,96622,1
+Applicant_262,Engineering,Python;MachineLearning,2,1,UK,England,11903,0
+Applicant_263,Design,Java;Spring,3,2,UK,Scotland,88469,1
+Applicant_264,Science,Excel;Finance,0,0,Australia,New South Wales,64346,0
+Applicant_265,Science,Writing;Research,0,4,UK,Scotland,55600,0
+Applicant_266,Business,React;Node,0,2,India,Delhi,71319,0
+Applicant_267,Business,C++;Algorithms,3,4,USA,California,91949,1
+Applicant_268,Design,Writing;Research,1,5,UK,England,85332,1
+Applicant_269,Engineering,Java;Spring,1,3,Australia,Victoria,61158,1
+Applicant_270,Engineering,React;Node,4,4,India,Karnataka,29917,1
+Applicant_271,Science,Excel;Finance,4,3,Canada,British Columbia,32287,1
+Applicant_272,Design,Excel;Finance,1,0,Canada,British Columbia,67339,0
+Applicant_273,Engineering,Java;Spring,4,3,Australia,Victoria,46693,1
+Applicant_274,Engineering,C++;Algorithms,3,5,India,Karnataka,68092,1
+Applicant_275,Science,Writing;Research,0,1,Canada,Quebec,11519,0
+Applicant_276,Design,C++;Algorithms,3,1,India,Delhi,31949,1
+Applicant_277,Science,React;Node,0,0,India,Telangana,52157,0
+Applicant_278,Engineering,Excel;Finance,2,0,India,Maharashtra,35696,0
+Applicant_279,Science,React;Node,3,5,UK,Scotland,26297,1
+Applicant_280,Arts,Excel;Finance,4,3,Australia,Victoria,93862,1
+Applicant_281,Business,Writing;Research,4,1,Canada,Ontario,69753,1
+Applicant_282,Arts,React;Node,3,4,Australia,New South Wales,81104,1
+Applicant_283,Science,Java;Spring,1,3,Canada,Ontario,29773,0
+Applicant_284,Engineering,C++;Algorithms,4,4,Canada,Quebec,50651,1
+Applicant_285,Arts,Excel;Finance,1,0,Australia,New South Wales,87858,0
+Applicant_286,Engineering,Python;MachineLearning,2,0,USA,Massachusetts,87253,1
+Applicant_287,Science,React;Node,1,0,USA,Massachusetts,96744,0
+Applicant_288,Science,Excel;Finance,2,5,UK,England,56682,1
+Applicant_289,Arts,Excel;Finance,2,3,Australia,Victoria,50582,1
+Applicant_290,Business,Python;MachineLearning,2,1,Australia,New South Wales,19645,0
+Applicant_291,Science,C++;Algorithms,0,0,India,Telangana,85094,0
+Applicant_292,Arts,React;Node,1,0,Australia,New South Wales,86529,0
+Applicant_293,Engineering,C++;Algorithms,3,1,UK,England,33708,1
+Applicant_294,Design,React;Node,2,1,India,Tamil Nadu,98143,1
+Applicant_295,Design,Writing;Research,2,4,USA,Massachusetts,70947,1
+Applicant_296,Science,Java;Spring,4,5,USA,New York,15906,1
+Applicant_297,Science,Writing;Research,1,4,USA,California,68864,1
+Applicant_298,Engineering,Writing;Research,2,0,Australia,Victoria,90315,1
+Applicant_299,Arts,Python;MachineLearning,0,5,Australia,New South Wales,29531,0
+Applicant_300,Arts,C++;Algorithms,0,3,USA,Texas,78320,0
+Applicant_301,Arts,Java;Spring,0,1,UK,England,38969,0
+Applicant_302,Arts,Java;Spring,3,4,Canada,Ontario,70876,1
+Applicant_303,Science,Excel;Finance,1,0,India,Karnataka,39755,0
+Applicant_304,Arts,Excel;Finance,0,1,India,Tamil Nadu,29167,0
+Applicant_305,Arts,Excel;Finance,0,1,USA,New York,95416,0
+Applicant_306,Engineering,C++;Algorithms,4,5,Australia,New South Wales,93385,1
+Applicant_307,Design,React;Node,3,3,UK,Scotland,74532,1
+Applicant_308,Business,Java;Spring,2,5,Australia,Victoria,72351,1
+Applicant_309,Engineering,C++;Algorithms,4,1,Canada,Quebec,25508,1
+Applicant_310,Arts,Excel;Finance,0,5,Australia,Victoria,97235,1
+Applicant_311,Design,Excel;Finance,3,4,UK,Scotland,18727,1
+Applicant_312,Business,C++;Algorithms,1,5,Canada,Ontario,30088,1
+Applicant_313,Business,Excel;Finance,3,0,UK,England,88118,1
+Applicant_314,Design,Java;Spring,4,5,Canada,Ontario,13298,1
+Applicant_315,Business,React;Node,3,3,Australia,New South Wales,18764,1
+Applicant_316,Science,Writing;Research,3,2,Canada,British Columbia,49094,1
+Applicant_317,Arts,Writing;Research,3,0,USA,New York,24736,1
+Applicant_318,Arts,Excel;Finance,4,2,Canada,British Columbia,96517,1
+Applicant_319,Engineering,Excel;Finance,1,0,India,Delhi,16370,0
+Applicant_320,Science,C++;Algorithms,4,1,Australia,Victoria,18298,1
+Applicant_321,Design,C++;Algorithms,0,0,UK,Scotland,87414,0
+Applicant_322,Arts,Java;Spring,4,5,UK,Scotland,83558,1
+Applicant_323,Engineering,Excel;Finance,4,4,UK,England,47092,1
+Applicant_324,Design,Python;MachineLearning,0,3,Canada,Ontario,29341,0
+Applicant_325,Science,Python;MachineLearning,4,4,Australia,New South Wales,52132,1
+Applicant_326,Science,Python;MachineLearning,4,3,Canada,British Columbia,97556,1
+Applicant_327,Design,Writing;Research,1,5,UK,Scotland,42933,1
+Applicant_328,Business,Writing;Research,1,1,USA,New York,20411,0
+Applicant_329,Business,Writing;Research,4,3,USA,Massachusetts,44442,1
+Applicant_330,Engineering,C++;Algorithms,0,2,India,Tamil Nadu,61459,0
+Applicant_331,Science,C++;Algorithms,2,1,Australia,Victoria,70716,1
+Applicant_332,Arts,Excel;Finance,3,2,UK,Scotland,42668,1
+Applicant_333,Arts,Python;MachineLearning,4,2,UK,England,16833,1
+Applicant_334,Business,Java;Spring,4,4,India,Delhi,37757,1
+Applicant_335,Engineering,Java;Spring,4,2,Australia,New South Wales,18566,1
+Applicant_336,Arts,C++;Algorithms,3,4,India,Karnataka,58727,1
+Applicant_337,Science,Python;MachineLearning,4,3,UK,Scotland,98290,1
+Applicant_338,Design,C++;Algorithms,1,4,UK,England,31001,1
+Applicant_339,Science,Python;MachineLearning,1,5,Australia,Victoria,31135,1
+Applicant_340,Arts,Writing;Research,2,0,USA,Massachusetts,93648,1
+Applicant_341,Science,Excel;Finance,0,5,Australia,Victoria,81180,1
+Applicant_342,Business,Excel;Finance,1,4,USA,New York,23702,1
+Applicant_343,Science,Writing;Research,3,4,Australia,New South Wales,27699,1
+Applicant_344,Business,Java;Spring,3,4,Canada,Ontario,25363,1
+Applicant_345,Design,Java;Spring,2,4,Australia,New South Wales,17796,1
+Applicant_346,Engineering,React;Node,2,3,UK,Scotland,59777,1
+Applicant_347,Arts,Java;Spring,3,5,India,Karnataka,60462,1
+Applicant_348,Business,Writing;Research,0,3,Canada,Quebec,14259,0
+Applicant_349,Science,C++;Algorithms,3,0,USA,Texas,10537,0
+Applicant_350,Business,Java;Spring,0,5,Canada,British Columbia,39338,0
+Applicant_351,Design,Java;Spring,2,2,USA,California,44499,1
+Applicant_352,Science,Excel;Finance,0,0,Canada,Ontario,75057,0
+Applicant_353,Design,Writing;Research,0,1,Australia,New South Wales,29366,0
+Applicant_354,Science,C++;Algorithms,1,4,Australia,Victoria,83013,1
+Applicant_355,Arts,Python;MachineLearning,0,3,Canada,British Columbia,11856,0
+Applicant_356,Engineering,React;Node,3,4,India,Maharashtra,86304,1
+Applicant_357,Design,Excel;Finance,2,5,Canada,Ontario,17355,1
+Applicant_358,Business,C++;Algorithms,2,0,USA,California,72457,1
+Applicant_359,Arts,C++;Algorithms,3,4,Canada,British Columbia,68949,1
+Applicant_360,Design,Java;Spring,2,4,USA,California,76301,1
+Applicant_361,Arts,Python;MachineLearning,2,0,Australia,Victoria,98146,1
+Applicant_362,Engineering,Excel;Finance,3,2,USA,Massachusetts,10517,1
+Applicant_363,Design,Python;MachineLearning,0,5,Canada,Ontario,95562,1
+Applicant_364,Business,Excel;Finance,0,2,India,Tamil Nadu,16062,0
+Applicant_365,Science,Excel;Finance,1,2,Australia,New South Wales,66112,1
+Applicant_366,Arts,C++;Algorithms,0,5,USA,Texas,34825,0
+Applicant_367,Science,Excel;Finance,2,4,USA,Texas,59546,1
+Applicant_368,Business,Java;Spring,0,4,India,Tamil Nadu,22523,0
+Applicant_369,Science,Python;MachineLearning,1,3,USA,Texas,53967,1
+Applicant_370,Design,Java;Spring,3,5,UK,Scotland,29974,1
+Applicant_371,Engineering,React;Node,2,4,India,Maharashtra,65031,1
+Applicant_372,Engineering,Java;Spring,1,5,Australia,Victoria,70680,1
+Applicant_373,Business,Excel;Finance,0,2,Australia,New South Wales,50379,0
+Applicant_374,Arts,Excel;Finance,2,1,Australia,Victoria,41026,1
+Applicant_375,Arts,React;Node,2,2,Australia,New South Wales,44740,1
+Applicant_376,Science,Writing;Research,0,3,Canada,British Columbia,11301,0
+Applicant_377,Arts,Java;Spring,0,3,Canada,Ontario,44342,0
+Applicant_378,Arts,Java;Spring,3,4,USA,New York,13686,1
+Applicant_379,Engineering,Writing;Research,4,5,Australia,New South Wales,26071,1
+Applicant_380,Engineering,Excel;Finance,4,4,UK,Scotland,58709,1
+Applicant_381,Science,React;Node,0,4,UK,England,56264,0
+Applicant_382,Arts,Python;MachineLearning,2,5,India,Karnataka,82859,1
+Applicant_383,Engineering,C++;Algorithms,3,4,Australia,Victoria,86377,1
+Applicant_384,Science,Python;MachineLearning,4,4,Canada,Quebec,24092,1
+Applicant_385,Engineering,Java;Spring,4,1,UK,Scotland,64249,1
+Applicant_386,Science,Java;Spring,0,5,USA,New York,54276,1
+Applicant_387,Engineering,C++;Algorithms,4,5,Australia,Victoria,99995,1
+Applicant_388,Engineering,Writing;Research,4,0,UK,England,85051,1
+Applicant_389,Design,Excel;Finance,0,5,India,Maharashtra,93882,1
+Applicant_390,Design,C++;Algorithms,2,0,India,Karnataka,26515,0
+Applicant_391,Business,React;Node,0,0,USA,Texas,23710,0
+Applicant_392,Business,Java;Spring,4,2,Australia,New South Wales,25592,1
+Applicant_393,Science,Java;Spring,3,0,UK,England,16710,0
+Applicant_394,Business,Writing;Research,1,1,India,Karnataka,48842,0
+Applicant_395,Engineering,Excel;Finance,4,2,Canada,Quebec,58803,1
+Applicant_396,Science,React;Node,2,3,Australia,New South Wales,35124,1
+Applicant_397,Business,Writing;Research,1,3,USA,California,83447,1
+Applicant_398,Science,Writing;Research,2,1,India,Maharashtra,43892,1
+Applicant_399,Design,Java;Spring,1,4,Canada,Quebec,38566,1
+Applicant_400,Engineering,C++;Algorithms,0,3,Australia,New South Wales,77067,0
+Applicant_401,Business,C++;Algorithms,0,3,UK,England,55160,0
+Applicant_402,Design,Writing;Research,0,0,Australia,Victoria,96115,0
+Applicant_403,Science,Excel;Finance,2,5,Canada,Ontario,18998,1
+Applicant_404,Design,React;Node,2,4,USA,New York,94793,1
+Applicant_405,Business,C++;Algorithms,4,4,Australia,New South Wales,44857,1
+Applicant_406,Arts,Excel;Finance,3,1,USA,Massachusetts,50532,1
+Applicant_407,Business,React;Node,0,5,USA,California,54439,1
+Applicant_408,Arts,Excel;Finance,1,1,UK,Scotland,84078,1
+Applicant_409,Business,React;Node,2,4,India,Maharashtra,62732,1
+Applicant_410,Arts,Java;Spring,3,5,UK,England,42604,1
+Applicant_411,Science,C++;Algorithms,3,0,Canada,Ontario,31246,1
+Applicant_412,Engineering,Java;Spring,2,0,USA,Massachusetts,88509,1
+Applicant_413,Engineering,Writing;Research,0,4,Australia,Victoria,41579,0
+Applicant_414,Business,Excel;Finance,1,4,UK,England,28001,1
+Applicant_415,Engineering,C++;Algorithms,2,0,Canada,Ontario,81766,1
+Applicant_416,Science,Python;MachineLearning,1,2,USA,New York,64999,1
+Applicant_417,Science,Java;Spring,3,0,Canada,Quebec,63063,1
+Applicant_418,Design,Writing;Research,4,4,India,Tamil Nadu,63143,1
+Applicant_419,Design,React;Node,4,4,UK,England,26671,1
+Applicant_420,Business,Java;Spring,3,5,India,Maharashtra,78604,1
+Applicant_421,Science,React;Node,1,2,Australia,New South Wales,59435,0
+Applicant_422,Science,C++;Algorithms,2,1,USA,Massachusetts,89540,1
+Applicant_423,Business,C++;Algorithms,2,1,Canada,British Columbia,75726,1
+Applicant_424,Business,Python;MachineLearning,4,3,Canada,Quebec,71297,1
+Applicant_425,Business,Excel;Finance,1,5,Canada,Quebec,40970,1
+Applicant_426,Engineering,Python;MachineLearning,1,3,Canada,Ontario,25294,0
+Applicant_427,Design,React;Node,1,1,Canada,Ontario,35049,0
+Applicant_428,Business,Writing;Research,2,5,UK,England,48571,1
+Applicant_429,Design,React;Node,1,2,India,Maharashtra,78765,1
+Applicant_430,Engineering,Excel;Finance,3,3,Canada,Quebec,57079,1
+Applicant_431,Engineering,Java;Spring,2,4,India,Telangana,94084,1
+Applicant_432,Science,Writing;Research,0,2,UK,England,87232,0
+Applicant_433,Design,React;Node,3,1,India,Tamil Nadu,21155,1
+Applicant_434,Engineering,Java;Spring,1,3,Canada,Quebec,79854,1
+Applicant_435,Engineering,Excel;Finance,4,1,Canada,British Columbia,86965,1
+Applicant_436,Business,Excel;Finance,2,3,India,Maharashtra,29452,1
+Applicant_437,Business,Java;Spring,4,3,USA,Texas,99440,1
+Applicant_438,Arts,Excel;Finance,1,1,Canada,British Columbia,59144,0
+Applicant_439,Business,React;Node,3,3,Australia,New South Wales,74615,1
+Applicant_440,Engineering,React;Node,1,0,Canada,British Columbia,24657,0
+Applicant_441,Design,Java;Spring,0,5,Australia,Victoria,12349,0
+Applicant_442,Arts,C++;Algorithms,3,0,USA,Texas,49997,1
+Applicant_443,Business,Java;Spring,3,5,USA,Texas,82325,1
+Applicant_444,Science,Java;Spring,0,0,UK,England,15033,0
+Applicant_445,Science,Java;Spring,3,0,Australia,Victoria,20377,1
+Applicant_446,Design,React;Node,1,1,UK,Scotland,49440,0
+Applicant_447,Design,React;Node,3,1,UK,England,17872,1
+Applicant_448,Business,Python;MachineLearning,1,3,UK,England,77890,1
+Applicant_449,Arts,Excel;Finance,2,4,Canada,Quebec,74996,1
+Applicant_450,Arts,C++;Algorithms,1,0,USA,New York,50285,0
+Applicant_451,Arts,Java;Spring,3,3,UK,England,51023,1
+Applicant_452,Design,React;Node,1,0,India,Karnataka,54351,0
+Applicant_453,Business,React;Node,4,5,USA,Texas,23051,1
+Applicant_454,Business,Python;MachineLearning,0,0,UK,Scotland,16934,0
+Applicant_455,Design,Python;MachineLearning,2,4,USA,Texas,20374,1
+Applicant_456,Arts,Writing;Research,3,2,USA,New York,79086,1
+Applicant_457,Engineering,Python;MachineLearning,0,1,Australia,Victoria,97286,0
+Applicant_458,Design,C++;Algorithms,0,2,India,Maharashtra,19175,0
+Applicant_459,Business,Java;Spring,4,5,UK,Scotland,55544,1
+Applicant_460,Engineering,React;Node,0,5,Canada,British Columbia,60877,1
+Applicant_461,Engineering,C++;Algorithms,3,2,USA,Texas,82938,1
+Applicant_462,Engineering,C++;Algorithms,0,1,India,Tamil Nadu,36979,0
+Applicant_463,Science,Python;MachineLearning,4,4,India,Tamil Nadu,69782,1
+Applicant_464,Engineering,Writing;Research,4,5,Australia,New South Wales,81965,1
+Applicant_465,Business,Java;Spring,2,0,Australia,Victoria,65762,1
+Applicant_466,Engineering,Java;Spring,2,2,Australia,Victoria,61563,1
+Applicant_467,Design,C++;Algorithms,4,4,India,Maharashtra,34521,1
+Applicant_468,Engineering,React;Node,1,2,Australia,Victoria,41219,0
+Applicant_469,Design,Python;MachineLearning,1,3,India,Delhi,10853,0
+Applicant_470,Business,Java;Spring,0,2,UK,Scotland,93504,0
+Applicant_471,Business,Java;Spring,0,2,Canada,Quebec,87219,0
+Applicant_472,Science,Java;Spring,3,1,India,Delhi,56519,1
+Applicant_473,Business,Python;MachineLearning,4,0,Canada,British Columbia,94195,1
+Applicant_474,Design,Python;MachineLearning,1,3,Australia,New South Wales,44027,1
+Applicant_475,Science,Excel;Finance,0,3,Canada,Ontario,95795,1
+Applicant_476,Arts,Python;MachineLearning,3,4,Australia,New South Wales,93676,1
+Applicant_477,Business,Java;Spring,4,2,India,Maharashtra,22336,1
+Applicant_478,Design,Excel;Finance,3,2,USA,New York,61227,1
+Applicant_479,Science,Java;Spring,3,5,India,Delhi,24482,1
+Applicant_480,Arts,React;Node,0,3,Australia,Victoria,92511,1
+Applicant_481,Science,C++;Algorithms,1,1,UK,Scotland,44565,0
+Applicant_482,Arts,C++;Algorithms,4,2,UK,Scotland,51806,1
+Applicant_483,Business,React;Node,3,1,India,Karnataka,42520,1
+Applicant_484,Arts,Java;Spring,0,4,Canada,Quebec,81840,1
+Applicant_485,Science,Excel;Finance,3,2,Canada,Quebec,28849,1
+Applicant_486,Design,Python;MachineLearning,0,0,UK,England,27877,0
+Applicant_487,Business,Python;MachineLearning,1,1,India,Karnataka,35607,0
+Applicant_488,Arts,Writing;Research,1,2,UK,England,39018,0
+Applicant_489,Science,Writing;Research,2,5,UK,England,35936,1
+Applicant_490,Business,Excel;Finance,4,4,UK,England,69624,1
+Applicant_491,Design,Excel;Finance,0,3,India,Maharashtra,49785,0
+Applicant_492,Business,Writing;Research,1,2,India,Delhi,88790,1
+Applicant_493,Design,Java;Spring,3,1,Canada,Ontario,96442,1
+Applicant_494,Business,C++;Algorithms,4,5,Canada,Ontario,38082,1
+Applicant_495,Science,Python;MachineLearning,0,2,USA,California,54856,0
+Applicant_496,Design,C++;Algorithms,4,4,UK,England,39175,1
+Applicant_497,Engineering,Excel;Finance,4,4,Canada,Ontario,47196,1
+Applicant_498,Arts,Excel;Finance,4,3,Australia,New South Wales,43222,1
+Applicant_499,Engineering,React;Node,4,5,Australia,New South Wales,49635,1
+Applicant_500,Arts,Excel;Finance,3,5,Australia,New South Wales,17378,1

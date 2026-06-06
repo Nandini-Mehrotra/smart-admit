@@ -130,28 +130,30 @@ ${rawText}
   }
 });
 
-//Filter Colleges Route
+// Filter Colleges Route (Upgraded for Multi-Select)
 app.get('/api/colleges/filter', async (req, res) => {
   try {
-    //Grab the search parameters from the URL 
-    const { state, maxBudget } = req.query;
+    // 1. Grab parameters (Frontend will send them as comma-separated strings like "India,USA")
+    const { country, state, maxBudget } = req.query;
 
-    //Build the database query dynamically
     let query = {};
     
+    if (country) {
+      // Split "India,USA" into an array ['India', 'USA'] and use the $in operator
+      query.country = { $in: country.split(',') };
+    }
+    
     if (state) {
-      query.state = state;
+      // Split "Karnataka,Telangana" into an array and use the $in operator
+      query.state = { $in: state.split(',') };
     }
     
     if (maxBudget) {
-      // $lte is MongoDB syntax for "Less Than or Equal to"
       query.tuition = { $lte: Number(maxBudget) };
     }
 
-    //Execute the search using our Compound Index
     const colleges = await College.find(query);
     
-    //Send the matching colleges back to the frontend
     res.json({
       status: 'success',
       results: colleges.length,
