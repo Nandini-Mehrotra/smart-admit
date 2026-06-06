@@ -1,5 +1,9 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask import request, jsonify
+from model import train_admission_model, predict_admission
+model = train_admission_model("students_records.csv")
+
 
 app = Flask(__name__)
 CORS(app)
@@ -17,17 +21,14 @@ def health():
 
 @app.route("/api/predict", methods=["POST"])
 def predict():
+
     data = request.get_json()
+
+    result = predict_admission(model, data)
 
     return jsonify({
         "success": True,
-        "message": "Prediction endpoint working",
-        "receivedData": data,
-        "samplePrediction": {
-            "collegeName": "Sample College",
-            "admissionProbability": 82,
-            "category": "Safe"
-        }
+        "prediction": result
     })
 
 if __name__ == "__main__":
