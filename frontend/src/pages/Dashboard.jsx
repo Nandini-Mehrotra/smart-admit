@@ -91,7 +91,11 @@ export default function Dashboard() {
               Analyze your profile and get personalized college recommendations.
             </p>
 
-            <ResumeUploader />
+            <ResumeUploader 
+              selectedCountries={selectedCountries} 
+              selectedStates={selectedStates} 
+              maxBudget={maxBudget} 
+            />
           </div>
 
           <section>

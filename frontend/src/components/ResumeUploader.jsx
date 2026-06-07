@@ -1,16 +1,18 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { UploadCloud, FileText, X, Loader2 } from 'lucide-react';
+import { UploadCloud, FileText, X, Loader2, AlertCircle } from 'lucide-react';
 
-export default function ResumeUploader() {
+export default function ResumeUploader({ selectedCountries, selectedStates, maxBudget }) {
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false); 
   const [predictionData, setPredictionData] = useState(null); 
+  const [validationError, setValidationError] = useState(""); 
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       setAcceptedFile(acceptedFiles[0]);
       setPredictionData(null); 
+      setValidationError("");
     }
   }, []);
 
@@ -21,12 +23,30 @@ export default function ResumeUploader() {
   });
 
   const handleAnalyze = async () => {
-    if (!acceptedFile) return;
+    // 1. THE USER UX: Enforce the interactive sidebar rules
+    if (selectedCountries.length === 0) {
+      setValidationError("Please select at least one Target Country from the sidebar.");
+      return;
+    }
+    if (selectedStates.length === 0) {
+      setValidationError("Please select at least one Target State/Province from the sidebar.");
+      return;
+    }
+    if (!maxBudget) {
+      setValidationError("Please enter your Max Budget in the sidebar.");
+      return;
+    }
 
+    setValidationError("");
     setIsUploading(true);
 
     const formData = new FormData();
     formData.append('resume', acceptedFile); 
+    
+    // 2. THE BRIDGE: Send the interactive filters to Node
+    formData.append('targetCountry', selectedCountries[0]); 
+    formData.append('targetState', selectedStates[0]);
+    formData.append('maxBudget_USD', maxBudget);
 
     try {
       const response = await fetch('http://localhost:5001/api/upload', {
@@ -35,17 +55,17 @@ export default function ResumeUploader() {
       });
 
       const data = await response.json();
-      console.log("Backend says:", data); 
+      console.log("🕵️‍♂️ FRONTEND TRUTH:", data);
       
       if (data.status === "success") {
         setPredictionData(data);
       } else {
-        alert("Something went wrong with the AI analysis.");
+        setValidationError("Something went wrong with the AI analysis.");
       }
 
     } catch (error) {
       console.error("Upload failed:", error);
-      alert("Upload failed. Is your backend running?");
+      setValidationError("Upload failed. Is your backend running?");
     } finally {
       setIsUploading(false); 
     }
@@ -53,6 +73,14 @@ export default function ResumeUploader() {
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-8">
+      {/* Validation Warning Box */}
+      {validationError && (
+        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center text-red-700">
+          <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+          <p className="text-sm font-medium">{validationError}</p>
+        </div>
+      )}
+
       {/* The Dropzone Area */}
       <div 
         {...getRootProps()} 
@@ -85,6 +113,7 @@ export default function ResumeUploader() {
               onClick={() => {
                 setAcceptedFile(null);
                 setPredictionData(null);
+                setValidationError("");
               }} 
               className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
               disabled={isUploading}
@@ -104,22 +133,22 @@ export default function ResumeUploader() {
         </div>
       )}
 
-      {/* The AI Results Card with Bulletproof Rendering */}
+      {/* The AI Results Card */}
       {predictionData && (
-        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
+        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-4">
           <h3 className="text-xl font-bold mb-4">🚀 AI Analysis Complete</h3>
           
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-600 font-semibold uppercase">Admission Probability</p>
               <p className="text-4xl font-extrabold text-blue-900">
-                {predictionData?.mlResult?.samplePrediction?.admissionProbability || "N/A"}%
+                {predictionData?.mlResult?.prediction?.admissionProbability ?? "N/A"}%
               </p>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <p className="text-sm text-green-600 font-semibold uppercase">Profile Category</p>
               <p className="text-4xl font-extrabold text-green-900">
-                {predictionData?.mlResult?.samplePrediction?.category || "Unknown"}
+                {predictionData?.mlResult?.prediction?.tier || "Unknown"}
               </p>
             </div>
           </div>
@@ -127,11 +156,19 @@ export default function ResumeUploader() {
           <div>
             <p className="font-semibold text-gray-700 mb-2">Detected Top Skills:</p>
             <div className="flex flex-wrap gap-2">
-              {(predictionData?.data?.extractedData?.topSkills || []).map((skill, index) => (
-                <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
-                  {skill}
-                </span>
-              ))}
+              {/* 3. NANDINI'S FIX: Safely split the hyphenated string from the backend */}
+              {predictionData?.extractedData?.skills ? (
+                predictionData.extractedData.skills
+                  .split('-')
+                  .filter((skill) => skill.trim() !== '')
+                  .map((skill, index) => (
+                    <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                      {skill}
+                    </span>
+                  ))
+              ) : (
+                <span className="text-gray-400 text-sm italic">No skills extracted</span>
+              )}
             </div>
           </div>
         </div>
