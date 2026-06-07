@@ -32,7 +32,7 @@ const Resume = mongoose.model("Resume", resumeSchema);
 
 //Health route
 app.get("/api/health", (req, res) => {
-  res.json({ status: "success", message: "Smart Admit API is running!🚀" });
+  res.json({ status: "success", message: "Smart Admit API is running!🚀"});
 });
 
 //Upload + parse PDF + call Gemini + save to MongoDB
@@ -46,26 +46,35 @@ app.post("/api/upload", upload.single("resume"), async (req, res) => {
     const pdfData = await pdfParse(req.file.buffer);
     const rawText = pdfData.text;
 
-    //Ask Gemini to convert resume text into JSON
-    const prompt = `
-Extract the following resume into valid JSON only.
+//Ask Gemini to convert resume text into JSON
+ const prompt = `
+  You are extracting resume data for an admission prediction model.
 
-Return this structure:
-{
-  "coreStream": "",
-  "topSkills": [],
-  "internships": 0,
-  "majorProjects": 0,
-  "competitiveProgrammingRating": "",
-  "summary": ""
-}
+  Return ONLY valid JSON. No markdown. No explanation.
 
-Resume text:
-${rawText}
-`;
+  Use exactly these keys:
+  {
+    "stream": "Engineering",
+    "skills": "React-Node",
+    "internships": 0,
+    "majorProjects": 0,
+    "targetCountry": "India",
+    "targetState": "Telangana",
+    "maxBudget_USD": 60000
+  }
 
+  Rules:
+  - Pick stream from: Engineering, Business, Arts, Science, Design
+  - Count internships from resume text
+  - Count major projects from resume text
+  - Convert skills into one string joined by hyphen
+  - If missing, use the default values shown above
+
+  Resume text:
+  ${rawText}
+  `;
     const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -85,6 +94,8 @@ ${rawText}
 
     const aiText =
       geminiData.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+      console.log("Gemini raw aiText:", aiText);
+      console.log("Full Gemini response:", JSON.stringify(geminiData, null, 2));
 
     //Clean Gemini output in case it returns ```json blocks
     const cleanedText = aiText
@@ -94,6 +105,7 @@ ${rawText}
 
     const extractedData = JSON.parse(cleanedText);
 
+    console.log("Gemini extractedData:", extractedData);
     //Save parsed result to MongoDB
     const savedResume = await Resume.create({
       fileName: req.file.originalname,
@@ -102,15 +114,31 @@ ${rawText}
     });
 
     // Forward the extracted JSON to the Python Flask server for ML Prediction
+
+    const mlInput = {
+      stream: extractedData.stream || "Engineering",
+      skills: extractedData.skills || "React-Node",
+      internships: Number(extractedData.internships) || 0,
+      majorProjects: Number(extractedData.majorProjects) || 0,
+      targetCountry: extractedData.targetCountry || "India",
+      targetState: extractedData.targetState || "Telangana",
+      maxBudget_USD: Number(extractedData.maxBudget_USD) || 60000
+    };
+
+    console.log("Sending to Flask ML:", mlInput);
+
     const pythonResponse = await fetch("http://127.0.0.1:8000/api/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(extractedData)
+      body: JSON.stringify(mlInput)
     });
 
-    const mlPrediction = await pythonResponse.json();
+    const responseText = await pythonResponse.text();
+    console.log("Flask raw response:", responseText);
+
+    const mlPrediction = JSON.parse(responseText);
 
     //finally send everything back to the frontend in one go
     res.json({

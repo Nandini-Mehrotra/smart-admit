@@ -104,7 +104,7 @@ export default function ResumeUploader() {
         </div>
       )}
 
-      {/* The AI Results Card with Bulletproof Rendering */}
+      {/* The AI Results Card with Fixed Rendering Paths */}
       {predictionData && (
         <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
           <h3 className="text-xl font-bold mb-4">🚀 AI Analysis Complete</h3>
@@ -113,13 +113,13 @@ export default function ResumeUploader() {
             <div className="p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-600 font-semibold uppercase">Admission Probability</p>
               <p className="text-4xl font-extrabold text-blue-900">
-                {predictionData?.mlResult?.samplePrediction?.admissionProbability || "N/A"}%
+                {predictionData?.mlResult?.prediction?.admissionProbability ?? "N/A"}%
               </p>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <p className="text-sm text-green-600 font-semibold uppercase">Profile Category</p>
               <p className="text-4xl font-extrabold text-green-900">
-                {predictionData?.mlResult?.samplePrediction?.category || "Unknown"}
+                {predictionData?.mlResult?.prediction?.tier || "Unknown"}
               </p>
             </div>
           </div>
@@ -127,11 +127,18 @@ export default function ResumeUploader() {
           <div>
             <p className="font-semibold text-gray-700 mb-2">Detected Top Skills:</p>
             <div className="flex flex-wrap gap-2">
-              {(predictionData?.data?.extractedData?.topSkills || []).map((skill, index) => (
-                <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
-                  {skill}
-                </span>
-              ))}
+              {predictionData?.data?.extractedData?.skills ? (
+                predictionData.data.extractedData.skills
+                  .split('-')
+                  .filter((skill) => skill.trim() !== '')
+                  .map((skill, index) => (
+                    <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                      {skill}
+                    </span>
+                  ))
+              ) : (
+                <span className="text-gray-400 text-sm italic">No skills extracted</span>
+              )}
             </div>
           </div>
         </div>
