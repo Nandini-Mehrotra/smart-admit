@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const collegeSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  country: { type: String, required: true },
   state: { type: String, required: true },
   tuition: { type: Number, required: true },
   requiredFitScore: { type: Number, required: true },
