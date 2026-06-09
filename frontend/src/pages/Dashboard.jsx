@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [selectedStates, setSelectedStates] = useState([]);       
   const [maxBudget, setMaxBudget] = useState("");
   
-  // NEW: State to hold the AI results from the uploader
+  // State to hold the AI results from the uploader
   const [aiAnalysis, setAiAnalysis] = useState(null);
 
   useEffect(() => {
@@ -33,7 +33,6 @@ export default function Dashboard() {
         if (result.data && result.data.length > 0) {
           setColleges(result.data);
         } else {
-          // If the database finds nothing, set it to an empty array. No more fake data!
           setColleges([]); 
         }
       } catch (error) {
@@ -76,11 +75,11 @@ export default function Dashboard() {
               selectedStates={selectedStates} 
               maxBudget={maxBudget} 
               onAnalysisSuccess={(data) => setAiAnalysis(data)} 
-              onReset={() => setAiAnalysis(null)} // <-- CATCH THE SWITCH HERE
+              onReset={() => setAiAnalysis(null)} 
             />
-          </div> {/* ADDED THIS MISSING CLOSING TAG */}
+          </div>
 
-          {/* NEW: Only show colleges IF the AI analysis is completely finished */}
+          {/* Only show colleges IF the AI analysis is completely finished */}
           {aiAnalysis && (
             <section className="animate-in fade-in slide-in-from-bottom-4">
               <div className="flex items-center mb-5">
@@ -96,7 +95,8 @@ export default function Dashboard() {
                     <CollegeCard 
                       key={college._id} 
                       college={college} 
-                      aiTier={aiAnalysis?.mlResult?.prediction?.tier} // <-- Pass Tier to the card!
+                      aiTier={college.calculatedTier} /* <--- THIS IS THE MAGIC SWITCH */
+                      skillGap={aiAnalysis?.extractedData?.skillGap} 
                     />
                   ))
                 ) : (

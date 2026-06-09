@@ -1,17 +1,26 @@
-import { ExternalLink, MapPin, DollarSign, Target, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, MapPin, DollarSign, Target, AlertCircle, Sparkles } from "lucide-react";
 
-export default function CollegeCard({ college, aiTier }) {
-  // Dynamic UI Configuration based on your Phase 5 Tri-Tier Categorization
+export default function CollegeCard({ college, aiTier, skillGap = [] }) {
+  // Add state to toggle the skill gap drop-down
+  const [showGap, setShowGap] = useState(false);
+
+  // Dynamic UI Configuration
   const tierConfig = {
     Safe: {
       color: "bg-emerald-100 text-emerald-800 border-emerald-200",
       icon: <Target className="w-4 h-4 mr-1" />,
       message: "Strong profile match. High probability of admission."
     },
-    Reach: { // or "Target" depending on your ML output
+    Target: { 
       color: "bg-amber-100 text-amber-800 border-amber-200",
       icon: <AlertCircle className="w-4 h-4 mr-1" />,
       message: "Competitive. Your profile is within the average admitted range."
+    },
+    Reach: { 
+      color: "bg-orange-100 text-orange-800 border-orange-200",
+      icon: <AlertCircle className="w-4 h-4 mr-1" />,
+      message: "Stretch goal. You meet baseline criteria but face high competition."
     },
     Dream: {
       color: "bg-indigo-100 text-indigo-800 border-indigo-200",
@@ -20,7 +29,7 @@ export default function CollegeCard({ college, aiTier }) {
     }
   };
 
-  const activeTier = tierConfig[aiTier] || tierConfig["Reach"]; // Fallback
+  const activeTier = tierConfig[aiTier] || tierConfig["Target"]; // Fallback
 
   return (
     <article className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 overflow-hidden flex flex-col h-full">
@@ -52,7 +61,7 @@ export default function CollegeCard({ college, aiTier }) {
         </div>
       </div>
 
-      {/* Tri-Tier Context / Skill Gap Stub */}
+      {/* Tri-Tier Context / Skill Gap Section */}
       <div className="mt-auto border-t border-gray-100 bg-gray-50 p-5">
         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">AI Match Insight</p>
         <p className="text-sm text-gray-700 leading-relaxed">
@@ -70,13 +79,31 @@ export default function CollegeCard({ college, aiTier }) {
             Official Site <ExternalLink className="w-3 h-3 ml-2" />
           </a>
           
-          {/* We will wire this up when we build the Phase 6 feature! */}
+          {/* Interactive Toggle Button */}
           {aiTier === "Dream" && (
-            <button className="flex-1 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-100">
-              View Skill Gap
+            <button 
+              onClick={() => setShowGap(!showGap)}
+              className="flex-1 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-100 flex justify-center items-center"
+            >
+              <Sparkles className="w-3 h-3 mr-2" />
+              {showGap ? "Hide Gap" : "View Skill Gap"}
             </button>
           )}
         </div>
+
+        {/* The Dropdown Content */}
+        {showGap && skillGap.length > 0 && (
+          <div className="mt-4 p-3 bg-white border border-indigo-100 rounded-lg shadow-inner animate-in fade-in slide-in-from-top-2 duration-200">
+            <p className="text-xs font-bold text-indigo-800 uppercase mb-2">Required Level-Up</p>
+            <div className="flex flex-wrap gap-2">
+              {skillGap.map((skill, index) => (
+                <span key={index} className="px-2 py-1 bg-indigo-50 text-indigo-600 rounded text-xs font-medium border border-indigo-100">
+                  + {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </article>
   );

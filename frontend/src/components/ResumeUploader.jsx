@@ -23,7 +23,6 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
   });
 
   const handleAnalyze = async () => {
-    // 1. THE USER UX: Enforce the interactive sidebar rules
     if (selectedCountries.length === 0) {
       setValidationError("Please select at least one Target Country from the sidebar.");
       return;
@@ -40,7 +39,6 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
     const formData = new FormData();
     formData.append('resume', acceptedFile); 
     
-    // 2. THE BRIDGE: Send the interactive filters to Node
     formData.append('targetCountry', selectedCountries[0]); 
     formData.append('targetState', selectedStates.length > 0 ? selectedStates[0] : "Any");    
     formData.append('maxBudget_USD', maxBudget);
@@ -71,7 +69,6 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-8">
-      {/* Validation Warning Box */}
       {validationError && (
         <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center text-red-700">
           <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
@@ -79,7 +76,6 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
         </div>
       )}
 
-      {/* The Dropzone Area */}
       <div 
         {...getRootProps()} 
         className={`border-2 border-dashed rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer transition-colors
@@ -98,7 +94,6 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
         )}
       </div>
 
-      {/* Success Message Area */}
       {acceptedFile && (
         <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
           <div className="flex items-center text-green-700 truncate mr-4">
@@ -112,7 +107,7 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
                 setAcceptedFile(null);
                 setPredictionData(null);
                 setValidationError("");
-                if (onReset) onReset(); // <-- THIS IS THE MAGIC SWITCH
+                if (onReset) onReset(); 
               }} 
               className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
               disabled={isUploading}
@@ -132,7 +127,6 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
         </div>
       )}
 
-      {/* The AI Results Card */}
       {predictionData && (
         <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-4">
           <h3 className="text-xl font-bold mb-4">🚀 AI Analysis Complete</h3>
@@ -155,7 +149,6 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
           <div>
             <p className="font-semibold text-gray-700 mb-2">Detected Top Skills:</p>
             <div className="flex flex-wrap gap-2">
-              {/* 3. NANDINI'S FIX: Safely split the hyphenated string from the backend */}
               {predictionData?.extractedData?.skills ? (
                 predictionData.extractedData.skills
                   .split('-')
@@ -170,6 +163,23 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
               )}
             </div>
           </div>
+
+          {/* NEW: Missing Skills / Skill Gap Section */}
+          {predictionData?.extractedData?.skillGap && predictionData.extractedData.skillGap.length > 0 && (
+            <div className="mt-6 p-4 bg-indigo-50 border border-indigo-100 rounded-lg">
+              <p className="text-sm font-semibold text-indigo-800 mb-2 flex items-center">
+                📈 Missing Skills to reach "Dream" Tier:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {predictionData.extractedData.skillGap.map((skill, index) => (
+                  <span key={index} className="px-3 py-1 bg-white border border-indigo-200 text-indigo-700 rounded-full text-sm font-medium shadow-sm">
+                    + {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
       )}
     </div>
