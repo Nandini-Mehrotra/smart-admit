@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadCloud, FileText, X, Loader2, AlertCircle } from 'lucide-react';
 
-export default function ResumeUploader({ selectedCountries, selectedStates, maxBudget }) {
+export default function ResumeUploader({ selectedCountries, selectedStates, maxBudget, onAnalysisSuccess, onReset }) {  
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false); 
   const [predictionData, setPredictionData] = useState(null); 
@@ -28,10 +28,7 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
       setValidationError("Please select at least one Target Country from the sidebar.");
       return;
     }
-    if (selectedStates.length === 0) {
-      setValidationError("Please select at least one Target State/Province from the sidebar.");
-      return;
-    }
+
     if (!maxBudget) {
       setValidationError("Please enter your Max Budget in the sidebar.");
       return;
@@ -45,7 +42,7 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
     
     // 2. THE BRIDGE: Send the interactive filters to Node
     formData.append('targetCountry', selectedCountries[0]); 
-    formData.append('targetState', selectedStates[0]);
+    formData.append('targetState', selectedStates.length > 0 ? selectedStates[0] : "Any");    
     formData.append('maxBudget_USD', maxBudget);
 
     try {
@@ -59,6 +56,7 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
       
       if (data.status === "success") {
         setPredictionData(data);
+        if (onAnalysisSuccess) onAnalysisSuccess(data);
       } else {
         setValidationError("Something went wrong with the AI analysis.");
       }
@@ -114,6 +112,7 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
                 setAcceptedFile(null);
                 setPredictionData(null);
                 setValidationError("");
+                if (onReset) onReset(); // <-- THIS IS THE MAGIC SWITCH
               }} 
               className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
               disabled={isUploading}
