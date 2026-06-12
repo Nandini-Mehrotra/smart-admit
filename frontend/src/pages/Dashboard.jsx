@@ -5,15 +5,50 @@ import { ArrowLeft, Sparkles } from "lucide-react";
 import ResumeUploader from "../components/ResumeUploader";
 import SidebarFilters from "../components/SidebarFilters";
 import CollegeCard from "../components/CollegeCard";
+import WhatifSliders from "../components/WhatifSliders";
 
 export default function Dashboard() {
   const [colleges, setColleges] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]); 
   const [selectedStates, setSelectedStates] = useState([]);       
   const [maxBudget, setMaxBudget] = useState("");
-  
+  const [adjustments, setAdjustments] = useState({
+    gpaBoost: 0,
+    internshipBoost: 0,
+    projectBoost: 0,
+  });
   // State to hold the AI results from the uploader
   const [aiAnalysis, setAiAnalysis] = useState(null);
+
+  // This recalculates probability instantly on frontend
+  const calculateAdjustedProbability = (baseProbability) => {
+    let updatedProbability =
+      baseProbability +
+      adjustments.gpaBoost * 8 +
+      adjustments.internshipBoost * 5 +
+      adjustments.projectBoost * 3;
+
+    // Prevent weird values
+    if (updatedProbability > 99) updatedProbability = 99;
+    if (updatedProbability < 1) updatedProbability = 1;
+
+    return Math.round(updatedProbability);
+  };
+
+  const getDynamicTier = (probability) => {
+  if (probability >= 80) return "Safe";
+  if (probability >= 60) return "Target";
+  return "Dream";
+};
+
+const baseOverallProbability =
+  aiAnalysis?.mlResult?.prediction?.admissionProbability || 0;
+
+const simulatedOverallProbability = aiAnalysis
+  ? calculateAdjustedProbability(baseOverallProbability)
+  : 0;
+
+const simulatedOverallTier = getDynamicTier(simulatedOverallProbability);
 
   useEffect(() => {
     const fetchColleges = async () => {
@@ -54,6 +89,7 @@ export default function Dashboard() {
       </div>
 
       <div className="p-8 flex flex-col lg:flex-row gap-8">
+      <aside className="w-full lg:w-72 space-y-6 flex-shrink-0">
         <SidebarFilters
           selectedCountries={selectedCountries}
           setSelectedCountries={setSelectedCountries}
@@ -62,6 +98,18 @@ export default function Dashboard() {
           maxBudget={maxBudget}
           setMaxBudget={setMaxBudget}
         />
+
+        <WhatifSliders
+          adjustments={adjustments}
+          setAdjustments={setAdjustments}
+        />
+        {/* only to check if the sliders are working */}
+        {/* <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-sm">
+          <p>GPA Boost: {adjustments.gpaBoost}</p>
+          <p>Internships: {adjustments.internshipBoost}</p>
+          <p>Projects: {adjustments.projectBoost}</p>
+        </div> */}
+      </aside>
 
         <main className="flex-1">
           <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm mb-10">
@@ -76,6 +124,8 @@ export default function Dashboard() {
               maxBudget={maxBudget} 
               onAnalysisSuccess={(data) => setAiAnalysis(data)} 
               onReset={() => setAiAnalysis(null)} 
+              simulatedProbability={simulatedOverallProbability}
+              simulatedTier={simulatedOverallTier}
             />
           </div>
 
@@ -91,14 +141,30 @@ export default function Dashboard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {colleges.length > 0 ? (
-                  colleges.map((college) => (
-                    <CollegeCard 
-                      key={college._id} 
-                      college={college} 
-                      aiTier={college.calculatedTier} /* <--- THIS IS THE MAGIC SWITCH */
-                      skillGap={aiAnalysis?.extractedData?.skillGap} 
-                    />
-                  ))
+                  colleges.map((college) => {
+                    // Base probability from Flask
+                    const baseProbability =
+                      aiAnalysis?.mlResult?.prediction?.admissionProbability || 70;
+
+                    // Recalculate instantly
+                    const adjustedProbability =
+                      calculateAdjustedProbability(baseProbability);
+
+                    // Generate new tier dynamically
+                    const dynamicTier = getDynamicTier(adjustedProbability);
+
+                    return (
+                      <CollegeCard
+                        key={college._id}
+                        college={{
+                          ...college,
+                          adjustedProbability: adjustedProbability,
+                        }}
+                        aiTier={dynamicTier}
+                        skillGap={aiAnalysis?.extractedData?.skillGap}
+                      />
+                    );
+                  })
                 ) : (
                   <p className="text-gray-500">No colleges found matching your exact filters.</p>
                 )}

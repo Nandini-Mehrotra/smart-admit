@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadCloud, FileText, X, Loader2, AlertCircle } from 'lucide-react';
 
-export default function ResumeUploader({ selectedCountries, selectedStates, maxBudget, onAnalysisSuccess, onReset }) {  
+export default function ResumeUploader({ selectedCountries, selectedStates, maxBudget, onAnalysisSuccess, onReset, simulatedProbability, simulatedTier, }) {  
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false); 
   const [predictionData, setPredictionData] = useState(null); 
@@ -135,13 +135,13 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
             <div className="p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-600 font-semibold uppercase">Admission Probability</p>
               <p className="text-4xl font-extrabold text-blue-900">
-                {predictionData?.mlResult?.prediction?.admissionProbability ?? "N/A"}%
+                {simulatedProbability || predictionData?.mlResult?.prediction?.admissionProbability || "N/A"}%
               </p>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <p className="text-sm text-green-600 font-semibold uppercase">Profile Category</p>
               <p className="text-4xl font-extrabold text-green-900">
-                {predictionData?.mlResult?.prediction?.tier || "Unknown"}
+                {simulatedTier || predictionData?.mlResult?.prediction?.tier || "Unknown"}
               </p>
             </div>
           </div>
