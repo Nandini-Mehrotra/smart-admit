@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import { createRequire } from "module";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import College from './models/College.js';
+import authRoutes from './routes/authRoutes.js';
 
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/auth', authRoutes);
 
 const upload = multer({ storage: multer.memoryStorage() });
 
