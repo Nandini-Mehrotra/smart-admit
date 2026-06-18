@@ -96,6 +96,12 @@ export default function Dashboard() {
           <span className="text-gray-700 font-medium">
             Welcome, {user?.name || "Student"}!
           </span>
+          <Link
+            to="/profile"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700"
+          >
+            My Profile
+          </Link>
           <button 
             onClick={handleLogout}
             className="flex items-center px-4 py-2 bg-red-50 text-red-600 font-medium rounded-lg hover:bg-red-100 transition-colors"

@@ -8,6 +8,87 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
+function protect(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = decoded.id;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+}
+
+router.get("/me", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ message: "Server error while fetching profile" });
+  }
+});
+
+router.put("/profile", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      return res.status(401).json({ message: "No token provided" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const { college, year, gpa, maxBudget } = req.body;
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.profile = {
+      college,
+      year,
+      gpa,
+      maxBudget,
+    };
+
+    const updatedUser = await user.save();
+
+    res.json({
+      message: "Profile updated successfully",
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        token,
+        profile: updatedUser.profile,
+        extractedResume: updatedUser.extractedResume,
+        savedResults: updatedUser.savedResults,
+        bookmarks: updatedUser.bookmarks,
+        lastAdjustments: updatedUser.lastAdjustments,
+      },
+    });
+  } catch (error) {
+    console.log("PROFILE UPDATE ERROR:", error);
+    res.status(500).json({ message: "Profile update failed" });
+  }
+});
+
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;

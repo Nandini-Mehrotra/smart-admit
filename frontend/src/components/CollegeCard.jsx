@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, MapPin, DollarSign, Target, AlertCircle, Sparkles } from "lucide-react";
+import { ExternalLink, MapPin, DollarSign, Target, AlertCircle, Sparkles, Star } from "lucide-react";
 
 export default function CollegeCard({ college, aiTier, skillGap = [] }) {
   // Add state to toggle the skill gap drop-down
@@ -30,6 +30,43 @@ export default function CollegeCard({ college, aiTier, skillGap = [] }) {
   };
 
   const activeTier = tierConfig[aiTier] || tierConfig["Target"]; // Fallback
+  const handleBookmark = () => {
+  const storedUser = JSON.parse(localStorage.getItem("smartAdmitUser"));
+
+  if (!storedUser) {
+    alert("Please login first");
+    return;
+  }
+
+  const oldBookmarks = storedUser.bookmarks || [];
+
+  const alreadyBookmarked = oldBookmarks.some(
+    (item) => item.name === college.name
+  );
+
+  if (alreadyBookmarked) {
+    alert("College already bookmarked");
+    return;
+  }
+
+  const bookmarkCollege = {
+    name: college.name,
+    state: college.state,
+    country: college.country || "India",
+    tuition: college.tuition,
+    tier: aiTier,
+    probability: college.adjustedProbability || null,
+  };
+
+  const updatedUser = {
+    ...storedUser,
+    bookmarks: [...oldBookmarks, bookmarkCollege],
+  };
+
+  localStorage.setItem("smartAdmitUser", JSON.stringify(updatedUser));
+
+  alert("College bookmarked successfully");
+};
 
   return (
     <article className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 overflow-hidden flex flex-col h-full">
@@ -94,6 +131,13 @@ export default function CollegeCard({ college, aiTier, skillGap = [] }) {
           >
             Official Site <ExternalLink className="w-3 h-3 ml-2" />
           </a>
+
+          <button
+            onClick={handleBookmark}
+            className="flex-1 inline-flex justify-center items-center px-4 py-2 border border-yellow-300 shadow-sm text-sm font-medium rounded-lg text-yellow-700 bg-yellow-50 hover:bg-yellow-100 transition-colors"
+          >
+            Bookmark <Star className="w-3 h-3 ml-2" />
+          </button>
           
           {/* Interactive Toggle Button */}
           {aiTier === "Dream" && (
