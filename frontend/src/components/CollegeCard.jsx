@@ -30,13 +30,53 @@ export default function CollegeCard({ college, aiTier, skillGap = [] }) {
   };
 
   const activeTier = tierConfig[aiTier] || tierConfig["Target"]; // Fallback
-  const handleBookmark = () => {
-  const storedUser = JSON.parse(localStorage.getItem("smartAdmitUser"));
+  const handleBookmark = async () => {
+    try {
+      const storedUser = JSON.parse(localStorage.getItem("smartAdmitUser"));
 
-  if (!storedUser) {
-    alert("Please login first");
-    return;
-  }
+      if (!storedUser?.token) {
+        alert("Please login first");
+        return;
+      }
+
+      const bookmarkCollege = {
+        name: college.name,
+        state: college.state,
+        country: college.country || "India",
+        tuition: college.tuition,
+        tier: aiTier,
+        probability: college.adjustedProbability || null,
+      };
+
+      const res = await fetch("http://localhost:5001/api/auth/bookmark", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${storedUser.token}`,
+        },
+        body: JSON.stringify(bookmarkCollege),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Bookmark failed");
+        return;
+      }
+
+      localStorage.setItem(
+        "smartAdmitUser",
+        JSON.stringify({
+          ...data.user,
+          token: storedUser.token,
+        })
+      );
+
+      alert("College bookmarked successfully");
+    } catch (error) {
+      console.log(error);
+      alert("Bookmark failed");
+    };
 
   const oldBookmarks = storedUser.bookmarks || [];
 

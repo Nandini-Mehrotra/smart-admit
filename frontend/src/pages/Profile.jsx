@@ -29,25 +29,39 @@ export default function Profile() {
     });
   };
 
-  const handleSaveProfile = () => {
-    const updatedUser = {
-      ...currentUser,
-      profile: {
-        ...currentUser.profile,
-        college: formData.college,
-        year: formData.year,
-        gpa: formData.gpa,
-        maxBudget: formData.maxBudget,
+const handleSaveProfile = async () => {
+  try {
+    const token = currentUser.token;
+
+    const res = await fetch("http://localhost:5001/api/auth/profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Profile save failed");
+      return;
+    }
+
+    const updatedUser = {
+      ...data.user,
+      token,
     };
 
-    localStorage.setItem("smartAdmitUser", JSON.stringify(updatedUser));
     login(updatedUser);
-
     alert("Profile saved successfully");
     setIsEditing(false);
-  };
-
+  } catch (error) {
+    console.log(error);
+    alert("Profile save failed");
+  }
+};
   const handleLogout = () => {
     logout();
     navigate("/login");
