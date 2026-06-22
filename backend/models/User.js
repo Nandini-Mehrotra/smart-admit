@@ -72,10 +72,10 @@ const userSchema = new mongoose.Schema(
       },
     },
 
-    bookmarks: {
-      type: [String],
-      default: [],
-    },
+    bookmarks: { 
+        type: Array, 
+        default: [] 
+      },
 
     lastAdjustments: {
       gpaBoost: {

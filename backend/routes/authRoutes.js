@@ -89,6 +89,52 @@ router.put("/profile", async (req, res) => {
   }
 });
 
+// --- BOOKMARK TOGGLE ROUTE ---
+router.put("/bookmark", protect, async (req, res) => {
+  try {
+    const { college } = req.body;
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // SAFEGUARD: Ensure the bookmarks array exists before we check it
+    if (!user.bookmarks) {
+      user.bookmarks = [];
+    }
+
+    // Now it's perfectly safe to check!
+    const isBookmarked = user.bookmarks.some((b) => b.name === college.name);
+
+    if (isBookmarked) {
+      user.bookmarks = user.bookmarks.filter((b) => b.name !== college.name);
+    } else {
+      user.bookmarks.push(college);
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      message: "Bookmarks updated successfully",
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        token: req.headers.authorization.split(" ")[1],
+        profile: updatedUser.profile,
+        extractedResume: updatedUser.extractedResume,
+        savedResults: updatedUser.savedResults,
+        bookmarks: updatedUser.bookmarks,
+        lastAdjustments: updatedUser.lastAdjustments,
+      },
+    });
+  } catch (error) {
+    console.error("BOOKMARK UPDATE ERROR:", error);
+    res.status(500).json({ message: "Bookmark update failed" });
+  }
+});
+
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
