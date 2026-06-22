@@ -11,87 +11,13 @@ const userSchema = new mongoose.Schema(
       college: { type: String, default: "" },
       year: { type: String, default: "" },
       gpa: { type: String, default: "" },
-
-      targetCountries: {
-        type: [String],
-        default: [],
-      },
-
-      targetStates: {
-        type: [String],
-        default: [],
-      },
-
-      maxBudget: {
-        type: Number,
-        default: 0,
-      },
-    },
-
-    extractedResume: {
-      coreStream: {
-        type: String,
-        default: "",
-      },
-
-      topSkills: {
-        type: [String],
-        default: [],
-      },
-
-      internships: {
-        type: Number,
-        default: 0,
-      },
-
-      projects: {
-        type: Number,
-        default: 0,
-      },
-
-      cpRating: {
-        type: String,
-        default: "",
-      },
-    },
-
-    savedResults: {
-      safe: {
-        type: [String],
-        default: [],
-      },
-
-      target: {
-        type: [String],
-        default: [],
-      },
-
-      dream: {
-        type: [String],
-        default: [],
-      },
-    },
+      maxBudget: { type: Number, default: 0 },
 
     bookmarks: { 
         type: Array, 
         default: [] 
       },
 
-    lastAdjustments: {
-      gpaBoost: {
-        type: Number,
-        default: 0,
-      },
-
-      internshipBoost: {
-        type: Number,
-        default: 0,
-      },
-
-      projectBoost: {
-        type: Number,
-        default: 0,
-      },
     },
   },
   { timestamps: true }

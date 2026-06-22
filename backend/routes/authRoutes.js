@@ -42,17 +42,13 @@ router.get("/me", protect, async (req, res) => {
 
 router.put("/profile", async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
+    const token = req.headers.authorization?.split(" ")[1];
 
-    if (!authHeader) {
-      return res.status(401).json({ message: "No token provided" });
+    if (!token) {
+      return res.status(401).json({ message: "No token found" });
     }
 
-    const token = authHeader.split(" ")[1];
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    const { college, year, gpa, maxBudget } = req.body;
 
     const user = await User.findById(decoded.id);
 
@@ -60,32 +56,67 @@ router.put("/profile", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.profile = {
-      college,
-      year,
-      gpa,
-      maxBudget,
-    };
+    user.profile = req.body;
 
-    const updatedUser = await user.save();
+    await user.save();
 
     res.json({
-      message: "Profile updated successfully",
+      message: "Profile saved",
       user: {
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        token,
-        profile: updatedUser.profile,
-        extractedResume: updatedUser.extractedResume,
-        savedResults: updatedUser.savedResults,
-        bookmarks: updatedUser.bookmarks,
-        lastAdjustments: updatedUser.lastAdjustments,
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        profile: user.profile,
+        bookmarks: user.bookmarks,
       },
     });
   } catch (error) {
-    console.log("PROFILE UPDATE ERROR:", error);
-    res.status(500).json({ message: "Profile update failed" });
+    console.log(error);
+    res.status(500).json({ message: "Profile save failed" });
+  }
+});
+
+router.put("/bookmark", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "No token found" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const college = req.body;
+
+    const alreadyExists = user.bookmarks.some(
+      (item) => item.name === college.name
+    );
+
+    if (!alreadyExists) {
+      user.bookmarks.push(college);
+    }
+
+    await user.save();
+
+    res.json({
+      message: "Bookmark saved",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        profile: user.profile,
+        bookmarks: user.bookmarks,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Bookmark save failed" });
   }
 });
 
