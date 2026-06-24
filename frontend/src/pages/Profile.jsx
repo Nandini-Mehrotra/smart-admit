@@ -44,7 +44,7 @@ export default function Profile() {
     try {
       const token = currentUser.token;
 
-      const response = await fetch("http://localhost:5001/api/auth/profile", {
+      const response = await fetch("import.meta.env.VITE_API_URL/api/auth/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

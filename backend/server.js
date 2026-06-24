@@ -13,9 +13,12 @@ const pdfParse = require("pdf-parse");
 dotenv.config();
 
 const app = express();
+app.use(cors({
+  origin: "*", // We will lock this down to your specific Vercel URL later for security!
+  credentials: true
+}));
 const PORT = process.env.PORT || 5001;
 
-app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 

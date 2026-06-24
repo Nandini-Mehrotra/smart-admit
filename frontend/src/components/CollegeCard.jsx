@@ -58,7 +58,7 @@ export default function CollegeCard({ college, aiTier, skillGap = [] }) {
     };
 
     try {
-      const response = await fetch("http://localhost:5001/api/auth/bookmark", {
+      const response = await fetch("import.meta.env.VITE_API_URL/api/auth/bookmark", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
