@@ -8,6 +8,7 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
+// Middleware to protect routes securely (Flexible Token Extraction)
 function protect(req, res, next) {
   const authHeader = req.headers.authorization;
 
@@ -15,7 +16,8 @@ function protect(req, res, next) {
     return res.status(401).json({ message: "No token provided" });
   }
 
-  const token = authHeader.split(" ")[1];
+  // Safely extract the token whether it includes "Bearer " or not
+  const token = authHeader.includes(" ") ? authHeader.split(" ")[1] : authHeader;
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -26,6 +28,7 @@ function protect(req, res, next) {
   }
 }
 
+// --- GET CURRENT USER ---
 router.get("/me", protect, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select("-password");
@@ -40,87 +43,42 @@ router.get("/me", protect, async (req, res) => {
   }
 });
 
-router.put("/profile", async (req, res) => {
+// --- UPDATE PROFILE (Forced Save) ---
+router.put("/profile", protect, async (req, res) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
+    // Using $set forces Mongoose to detect and save the nested object
+    const updatedUser = await User.findByIdAndUpdate(
+      req.userId,
+      { $set: { profile: req.body } },
+      { new: true } // Returns the updated document instead of the old one
+    );
 
-    if (!token) {
-      return res.status(401).json({ message: "No token found" });
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    const user = await User.findById(decoded.id);
-
-    if (!user) {
+    if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.profile = req.body;
-
-    await user.save();
+    // Safely extract token to send back to frontend
+    const authHeader = req.headers.authorization;
+    const token = authHeader.includes(" ") ? authHeader.split(" ")[1] : authHeader;
 
     res.json({
       message: "Profile saved",
       user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        profile: user.profile,
-        bookmarks: user.bookmarks,
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        profile: updatedUser.profile,
+        bookmarks: updatedUser.bookmarks,
+        token: token, 
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error("PROFILE SAVE ERROR:", error);
     res.status(500).json({ message: "Profile save failed" });
   }
 });
 
-router.put("/bookmark", async (req, res) => {
-  try {
-    const token = req.headers.authorization?.split(" ")[1];
-
-    if (!token) {
-      return res.status(401).json({ message: "No token found" });
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    const user = await User.findById(decoded.id);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    const college = req.body;
-
-    const alreadyExists = user.bookmarks.some(
-      (item) => item.name === college.name
-    );
-
-    if (!alreadyExists) {
-      user.bookmarks.push(college);
-    }
-
-    await user.save();
-
-    res.json({
-      message: "Bookmark saved",
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        profile: user.profile,
-        bookmarks: user.bookmarks,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Bookmark save failed" });
-  }
-});
-
-// --- BOOKMARK TOGGLE ROUTE ---
+// --- TOGGLE BOOKMARK ---
 router.put("/bookmark", protect, async (req, res) => {
   try {
     const { college } = req.body;
@@ -130,12 +88,10 @@ router.put("/bookmark", protect, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // SAFEGUARD: Ensure the bookmarks array exists before we check it
     if (!user.bookmarks) {
       user.bookmarks = [];
     }
 
-    // Now it's perfectly safe to check!
     const isBookmarked = user.bookmarks.some((b) => b.name === college.name);
 
     if (isBookmarked) {
@@ -145,6 +101,9 @@ router.put("/bookmark", protect, async (req, res) => {
     }
 
     const updatedUser = await user.save();
+    
+    const authHeader = req.headers.authorization;
+    const token = authHeader.includes(" ") ? authHeader.split(" ")[1] : authHeader;
 
     res.json({
       message: "Bookmarks updated successfully",
@@ -152,12 +111,9 @@ router.put("/bookmark", protect, async (req, res) => {
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
-        token: req.headers.authorization.split(" ")[1],
         profile: updatedUser.profile,
-        extractedResume: updatedUser.extractedResume,
-        savedResults: updatedUser.savedResults,
         bookmarks: updatedUser.bookmarks,
-        lastAdjustments: updatedUser.lastAdjustments,
+        token: token, 
       },
     });
   } catch (error) {
@@ -166,6 +122,7 @@ router.put("/bookmark", protect, async (req, res) => {
   }
 });
 
+// --- SIGNUP ---
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -180,15 +137,18 @@ router.post("/signup", async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        profile: user.profile,
+        bookmarks: user.bookmarks,
         token: generateToken(user._id),
       });
     }
   } catch (error) {
-    console.error("🚨 SIGNUP CRASH:", error); // <-- Add this!
+    console.error("🚨 SIGNUP CRASH:", error);
     res.status(500).json({ message: "Server error during signup", error: error.message });
   }
 });
 
+// --- LOGIN ---
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -199,6 +159,8 @@ router.post("/login", async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        profile: user.profile,
+        bookmarks: user.bookmarks, 
         token: generateToken(user._id),
       });
     } else {

@@ -12,12 +12,11 @@ const userSchema = new mongoose.Schema(
       year: { type: String, default: "" },
       gpa: { type: String, default: "" },
       maxBudget: { type: Number, default: 0 },
-
+    },
+    
     bookmarks: { 
-        type: Array, 
-        default: [] 
-      },
-
+      type: Array, 
+      default: [] 
     },
   },
   { timestamps: true }
