@@ -58,14 +58,17 @@ export default function CollegeCard({ college, aiTier, skillGap = [] }) {
     };
 
     try {
-      const response = await fetch("import.meta.env.VITE_API_URL/api/auth/bookmark", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${currentUser.token}`,
-        },
-        body: JSON.stringify({ college: bookmarkCollege }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/bookmark`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${storedUser.token}`,
+          },
+          body: JSON.stringify(bookmarkCollege),
+        }
+      );
 
       const data = await response.json();
 
