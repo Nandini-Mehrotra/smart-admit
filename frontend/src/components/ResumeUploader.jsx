@@ -42,10 +42,13 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
     formData.append('maxBudget_USD', maxBudget);
 
     try {
-      const response = await fetch('import.meta.env.VITE_API_URL/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/pdf/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const data = await response.json();
       
