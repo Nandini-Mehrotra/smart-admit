@@ -5,7 +5,7 @@ import { ArrowLeft, Sparkles, LogOut, AlertCircle, Sun, Moon } from "lucide-reac
 import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import ResumeUploader from "../components/ResumeUploader";
-import SidebarFilters from "../components/SidebarFilters";
+import SidebarFilters from "../components/SideBarFilters";
 import CollegeCard from "../components/CollegeCard";
 import WhatifSliders from "../components/WhatifSliders";
 
