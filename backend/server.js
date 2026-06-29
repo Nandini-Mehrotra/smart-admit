@@ -41,7 +41,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Upload + parse PDF + call Gemini + save to MongoDB
-app.post("/api/upload", upload.single("resume"), async (req, res) => {
+app.post("/api/pdf/upload", upload.single("resume"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -131,7 +131,8 @@ app.post("/api/upload", upload.single("resume"), async (req, res) => {
       maxBudget_USD: Number(maxBudget_USD)   
     };
 
-    const pythonResponse = await fetch("http://127.0.0.1:8000/api/predict", {
+    const pythonBaseUrl = process.env.PYTHON_API_URL || "http://127.0.0.1:8000";
+    const pythonResponse = await fetch(`${pythonBaseUrl}/api/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(mlPayload)
