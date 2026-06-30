@@ -139,8 +139,23 @@ app.post("/api/pdf/upload", upload.single("resume"), async (req, res) => {
     });
 
     const responseText = await pythonResponse.text();
-    console.log("Flask raw response:", responseText);
-    const mlPrediction = JSON.parse(responseText);
+    console.log("Flask raw response snippet:", responseText.substring(0, 100));
+
+    let mlPrediction;
+    
+    // THE GRACEFUL CATCH
+    try {
+      // We try to parse the JSON. 
+      mlPrediction = JSON.parse(responseText);
+    } catch (parseError) {
+      // If it crashes here, it means Render sent an HTML "waking up" page instead of JSON data!
+      console.log("⚠️ Python AI engine is currently asleep and warming up.");
+      
+      return res.status(503).json({
+        status: "warming_up",
+        message: "Our AI Prediction Engine is currently waking up from sleep mode. Please wait about 30-50 seconds and try uploading your resume again!"
+      });
+    }
 
 // 5. DATABASE MATCHING ROUTINE
     // Query your MongoDB matching the user's location filters and budget limits
