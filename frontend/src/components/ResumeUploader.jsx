@@ -43,7 +43,7 @@ export default function ResumeUploader({ selectedCountries, selectedStates, maxB
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/pdf/upload`,
+       `${import.meta.env.VITE_API_URL}/api/pdf/upload`,
         {
           method: "POST",
           body: formData,

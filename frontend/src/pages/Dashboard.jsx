@@ -102,7 +102,7 @@ export default function Dashboard() {
         if (maxBudget) params.append("maxBudget", maxBudget);
 
         const response = await fetch(
-          `import.meta.env.VITE_API_URL/api/colleges/filter?${params.toString()}`
+          `${import.meta.env.VITE_API_URL}/api/colleges/filter?${params.toString()}`
         );
 
         const result = await response.json();
