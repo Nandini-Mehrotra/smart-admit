@@ -81,7 +81,14 @@ router.put("/profile", protect, async (req, res) => {
 // --- TOGGLE BOOKMARK ---
 router.put("/bookmark", protect, async (req, res) => {
   try {
-    const { college } = req.body;
+    // 1. Extract payload safely
+    const college = req.body.college || req.body;
+
+    // 2. HARD STOP: Block the request if the frontend sends null or empty data
+    if (!college || typeof college !== 'object' || !college.name) {
+      return res.status(400).json({ message: "Invalid or missing college data provided" });
+    }
+
     const user = await User.findById(req.userId);
 
     if (!user) {
@@ -92,14 +99,21 @@ router.put("/bookmark", protect, async (req, res) => {
       user.bookmarks = [];
     }
 
+    // 3. THE VACCINE: Purge any 'null' or 'undefined' ghosts from the database
+    user.bookmarks = user.bookmarks.filter((b) => b !== null && b !== undefined);
+
+    // 4. Safely check if the college exists
     const isBookmarked = user.bookmarks.some((b) => b.name === college.name);
 
     if (isBookmarked) {
+      // Remove it
       user.bookmarks = user.bookmarks.filter((b) => b.name !== college.name);
     } else {
+      // Add it
       user.bookmarks.push(college);
     }
 
+    // Save the newly cleaned array
     const updatedUser = await user.save();
     
     const authHeader = req.headers.authorization;
