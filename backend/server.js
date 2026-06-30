@@ -12,11 +12,18 @@ const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
 dotenv.config();
 
-const app = express();
-app.use(cors({
-  origin: "*", // We will lock this down to your specific Vercel URL later for security!
-  credentials: true
-}));
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", 
+      "https://smart-admit-eta.vercel.app" 
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 const PORT = process.env.PORT || 5001;
 
 app.use(express.json());
